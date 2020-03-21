@@ -8,24 +8,22 @@ GetAllStock:function(callback){
 return db.query("Select * from Stock",callback);
 } ,
 
-GetAllStockById:function(stock_stockQuantity,callback){
+GetAllStockById:function(fk_itemId,fk_branchId,callback){
  
-        return db.query("Select * from Stock where stock_stockQuantity=?",[stock_stockQuantity],callback);
-        } ,
-        
-AddStock:function(item,callback){
-            return db.query("insert into Stock(stock_stockQuantity,fk_itemId,fk_branchId) values(?,?,?)",[item.stock_stockQuantity,fk_itemId,fk_branchId],callback);
-    },
-    
-    UpdateStock:function(id,item,callback){
-             return db.query("update Stock set stock_stockQuantity=?,fk_itemId=?,fk_branchId=? where stock_stockQuantity=?",[item.stock_stockQuantity,fk_itemId,fk_branchId] ,callback)
-    },
+        return db.query("Select * from Stock where fk_itemId=? and fk_branchId=? ",[fk_itemId,fk_branchId],callback);
+},
+addStock:function(item,callback){
+    return db.query("insert into Stock(fk_itemId,fk_branchId,stockQuantity) values(?,?,?)",[item.fk_itemId,item.fk_branchId,item.stockQuantity],callback);
+},
 
-    DeleteSale:function(id,callback){
-       
-            return db.query("delete from Sale where stock_stockQuantity in (?)",[id],callback);
-      } ,
- 
+updateStock:function(fk_itemId,fk_branchId,item,callback){
+    return db.query("update Stock set stockQuantity=? where fk_itemId=? and fk_branchId=? ",[item.stockQuantity,fk_itemId,fk_branchId] ,callback)
+},
+
+deleteStock:function(fk_itemId,fk_branchId,callback){
+
+    return db.query("delete from Stock where fk_itemId=? and fk_branchId=? ",[fk_itemId,fk_branchId],callback);
+} 
 
     
     
