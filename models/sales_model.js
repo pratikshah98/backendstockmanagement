@@ -16,11 +16,11 @@ GetAllSaleById:function(sale_saleId,callback){
 addSale:function(item,callback){
 
             var todaydate=new Date();
-            return db.query("insert into Sale(salesDate,isInvoiceGenerated,fk_saleTypeId,fk_customer_emailId) values(?,?,?,?)",[todaydate,item.isInvoiceGenerated,item.fk_saleTypeId,item.fk_customer_emailId],callback);
+            return db.query("insert into Sale(salesDate,isInvoiceGenerated,fkSaleTypeId,fkCustomerEmailId) values(?,?,?,?)",[todaydate,item.isInvoiceGenerated,item.fkSaleTypeId,item.fkCustomerEmailId],callback);
     },
     
 updateSale:function(id,item,callback){
-             return db.query("update Sale set salesDate=?,isInvoiceGenerated=?,fk_saleTypeId=?,fk_customer_emailId=? where saleId=?",[item.salesDate,item.isInvoiceGenerated,item.fk_saleTypeId,item.fk_customer_emailId,item.saleId] ,callback)
+             return db.query("update Sale set salesDate=?,isInvoiceGenerated=?,fkSaleTypeId=?,fkCustomerEmailId=? where saleId=?",[item.salesDate,item.isInvoiceGenerated,item.fkSaleTypeId,item.fkCustomerEmailId,item.saleId] ,callback)
     },
 
     deleteSale:function(id,callback){
