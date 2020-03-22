@@ -15,8 +15,8 @@ GetAllSaleById:function(sale_saleId,callback){
         
 addSale:function(item,callback){
 
-            var todaydate=new Date();
-            return db.query("insert into Sale(salesDate,isInvoiceGenerated,fkSaleTypeId,fkCustomerEmailId,fkBranchId) values(?,?,?,?,?)",[todaydate,item.isInvoiceGenerated,item.fkSaleTypeId,item.fkCustomerEmailId,item.fkBranchId],callback);
+        //     var todaydate=new Date();
+            return db.query("insert into Sale(salesDate,isInvoiceGenerated,fkSaleTypeId,fkCustomerEmailId,fkBranchId) values(?,?,?,?,?)",[item.salesDate,item.isInvoiceGenerated,item.fkSaleTypeId,item.fkCustomerEmailId,item.fkBranchId],callback);
     },
     
 updateSale:function(id,item,callback){
@@ -28,7 +28,10 @@ updateSale:function(id,item,callback){
             return db.query("delete from Sale where saleId in (?)",[id],callback);
       } ,
  
-
+getId:function(item,callback)
+{
+        return db.query("select saleId from Sale where salesDate=? and isInvoiceGenerated=? and fkSaleTypeId=? and fkCustomerEmailId=? and fkBranchId=?",[item.salesDate,item.isInvoiceGenerated,item.fkSaleTypeId,item.fkCustomerEmailId,item.fkBranchId],callback);
+}
   
 }
  module.exports=sale;

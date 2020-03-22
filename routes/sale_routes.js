@@ -28,16 +28,40 @@ router.get('/:saleId',function(req, res, next) {
 });
 router.post('/',function(req,res,next){
     sale.addSale(req.body,function(err,rows){
+      
       if(err)
       {
-      console.log(err);
+        console.log(err);
       }
       else
       {
-      res.json(rows);
+        
+      //  res.json(rows);
+      //  console.log("id is"+" "+rows.insertId);
+        sale.getId(req.body,function(err1,rows1){
+          if(err1)
+          {
+            res.json(err1);
+          }
+          else
+          {
+            res.json(rows1);
+          }
+        })
+
+      
       }
-    });
-  });
+      
+     //console.log("id is"+" "+rows.insertId);
+    }
+    
+  );
+
+  }
+
+
+);
+  
 
  
   router.put('/:id?',function(req,res,next){
