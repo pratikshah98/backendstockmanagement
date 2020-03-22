@@ -16,6 +16,7 @@ var Stock=require('./routes/stock_routes');
 var item=require('./routes/item_routes');
 var saletype=require('./routes/saletype_routes');
 var supplier=require('./routes/supplier_routes');
+var userbranchrole=require('./routes/user_branch_role_routes');
 var app = express();
 
 // view engine setup
@@ -40,6 +41,7 @@ app.use('/Stock',Stock);
 app.use('/item',item);
 app.use('/saletype',saletype);
 app.use('/supplier',supplier);
+app.use('/userbranchrole',userbranchrole);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));

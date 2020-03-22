@@ -30,6 +30,10 @@ AddUser:function(item,callback){
        
             return db.query("delete from User where userEmailId in (?)",[id],callback);
       } ,
+      getBranchAndRoleName:function(callback)
+      {
+        return db.query("Select u.*,r.*,b.* from User u,branch b,role r where r.roleId=u.fkRoleID and b.branchId=u.fkBranchId",callback);     
+      }
  
 //     DeleteAllUser:function(item,callback){
 //             var delarr=[];
