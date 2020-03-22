@@ -1,6 +1,7 @@
 ready:
 customer,branch,role,user,sale
 stock,item,saletype
+supplier
 
 get : http://localhost:4000/customer
 getbyid: http://localhost:4000/customer/prachi@gmail.com
