@@ -1,10 +1,12 @@
+
 var db=require('../dbconnec'); //reference of dbconnection.js
- 
+const uuid=require("uuid-random"); 
 var sale={
  
     
 GetAllSale:function(callback){
  
+        
 return db.query("Select * from Sale",callback);
 } ,
 
@@ -16,8 +18,11 @@ GetAllSaleById:function(sale_saleId,callback){
 addSale:function(item,callback){
 
         //     var todaydate=new Date();
-            return db.query("insert into Sale(salesDate,isInvoiceGenerated,fkSaleTypeId,fkCustomerEmailId,fkBranchId) values(?,?,?,?,?)",[item.salesDate,item.isInvoiceGenerated,item.fkSaleTypeId,item.fkCustomerEmailId,item.fkBranchId],callback);
-    },
+        let u=uuid();
+        console.log(u);
+        db.query("insert into Sale(saleId,salesDate,isInvoiceGenerated,fkSaleTypeId,fkCustomerEmailId,fkBranchId) values(?,?,?,?,?,?)",[u,item.salesDate,item.isInvoiceGenerated,item.fkSaleTypeId,item.fkCustomerEmailId,item.fkBranchId],callback);
+         return u;   
+},
     
 updateSale:function(id,item,callback){
              return db.query("update Sale set salesDate=?,isInvoiceGenerated=?,fkSaleTypeId=?,fkCustomerEmailId=?,fkBranchId=? where saleId=?",[item.salesDate,item.isInvoiceGenerated,item.fkSaleTypeId,item.fkCustomerEmailId,item.fkBranchId,item.saleId] ,callback)
