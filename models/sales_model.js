@@ -45,6 +45,11 @@ getBranchAndcustomerName:function(callback)
  
   return db.query("select * from Sale join branch on (Sale.fkBranchId=branch.branchId) join customer on(Sale.fkCustomerEmailId=customer.customerEmailId)",callback);    
 },
+getBranchAndcustomerNameById:function(id,callback)
+{
+ 
+  return db.query("select * from Sale join branch on (Sale.fkBranchId=branch.branchId) join customer on(Sale.fkCustomerEmailId=customer.customerEmailId) where saleId=?",[id],callback);    
+},
   
 }
  module.exports=sale;
