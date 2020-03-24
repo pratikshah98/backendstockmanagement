@@ -35,10 +35,16 @@ updateSale:function(id,item,callback){
             return db.query("delete from Sale where saleId in (?)",[id],callback);
       } ,
  
-getId:function(item,callback)
+// getId:function(item,callback)
+// {
+//         return db.query("select saleId from Sale where salesDate=? and isInvoiceGenerated=? and fkSaleTypeId=? and fkCustomerEmailId=? and fkBranchId=?",[item.salesDate,item.isInvoiceGenerated,item.fkSaleTypeId,item.fkCustomerEmailId,item.fkBranchId],callback);
+// }
+
+getBranchAndcustomerName:function(callback)
 {
-        return db.query("select saleId from Sale where salesDate=? and isInvoiceGenerated=? and fkSaleTypeId=? and fkCustomerEmailId=? and fkBranchId=?",[item.salesDate,item.isInvoiceGenerated,item.fkSaleTypeId,item.fkCustomerEmailId,item.fkBranchId],callback);
-}
+ 
+  return db.query("select * from Sale join branch on (Sale.fkBranchId=branch.branchId) join customer on(Sale.fkCustomerEmailId=customer.customerEmailId)",callback);    
+},
   
 }
  module.exports=sale;

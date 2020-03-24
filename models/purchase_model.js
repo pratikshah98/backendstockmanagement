@@ -21,6 +21,11 @@ var purchase={
     // {
     //     return db.query("select purchaseId from purchase where purchaseDate=? and fkSupplierEmailId=? and fkBranchId=?",[item.purchaseDate,item.fkSupplierEmailId,item.fkBranchId],callback);
     // }
+    getBranchAndsupplierName:function(callback)
+{
+ 
+  return db.query("select * from purchase join branch on (purchase.fkBranchId=branch.branchId) join supplier on(purchase.fkSupplierEmailId=supplier.supplierEmailId)",callback);    
+},
 
 };
 module.exports=purchase;
