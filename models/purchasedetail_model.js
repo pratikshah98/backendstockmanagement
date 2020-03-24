@@ -19,7 +19,7 @@ var purchasedetail={
     },
     purchasedetailAndItemjoinbyid:function(id,callback)
     {
-        return db.query("select * from purchasedetails join purchase on (purchase.purchaseId=purchasedetails.fkPurchaseId) join item on(item.itemId=purchasedetails.fkItemId) where fkPurchaseId=?",[id],callback);   
+        return db.query("select * from purchasedetails p,item i where p.fkItemId=i.itemId and  p.fkPurchaseId=?",[id],callback);   
     }
 
 };
