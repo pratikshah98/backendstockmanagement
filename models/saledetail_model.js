@@ -16,6 +16,10 @@ var saledetail={
     updateSalesdetail:function(sid,item,callback){
 
         return db.query("update salesdetails set fkItemId=?,creditRate=?,saleQuantity=? where fkSaleId=?",[item.fkItemId,item.creditRate,item.saleQuantity,sid],callback);
+    },
+    saledetailAndItemjoinbyid:function(id,callback)
+    {
+        return db.query("select * from salesdetails join Sale on (Sale.saleId=salesdetails.fkSaleId) join item on(item.itemId=salesdetails.fkItemId) where fkSaleId=?",[id],callback);   
     }
 
 };

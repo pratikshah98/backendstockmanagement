@@ -16,6 +16,10 @@ var purchasedetail={
     updatePurDetail:function(id,item,callback){
 
         return db.query("update purchasedetails set fkItemId=?,purchaseQuantity=? where fkPurchaseId=?",[item.fkItemId,item.purchaseQuantity,id],callback);
+    },
+    purchasedetailAndItemjoinbyid:function(id,callback)
+    {
+        return db.query("select * from purchasedetails join purchase on (purchase.purchaseId=purchasedetails.fkPurchaseId) join item on(item.itemId=purchasedetails.fkItemId) where fkPurchaseId=?",[id],callback);   
     }
 
 };

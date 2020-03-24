@@ -23,6 +23,8 @@ var purchasedetail=require('./routes/purchasedetail_routes');
 var changepassword=require('./routes/user_routes');
 var salebranchcustomer=require('./routes/salebranchcustomer_join_routes');
 var purchasebranchsupplier=require('./routes/purchasebranchsupplier_join_routes');
+var saledetail_item=require('./routes/saledetails_item_join_routes');
+var purchasedetail_item=require('./routes/purchasedetails_item_join_routes');
 
 var app = express();
 
@@ -55,6 +57,8 @@ app.use('/purchasedetail',purchasedetail);
 app.use('/changepassword',changepassword);
 app.use('/salebranchcustomer',salebranchcustomer);
 app.use('/purchasebranchsupplier',purchasebranchsupplier);
+app.use('/saledetail_item',saledetail_item);
+app.use('/purchasedetail_item',purchasedetail_item);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
