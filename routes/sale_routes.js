@@ -35,8 +35,8 @@ router.post('/',function(req,res,next){
       }
       else
       {
-        
-        res.send(rows);
+        //console.log(rows);
+        res.json(rows);
       //  console.log("id is"+" "+rows.insertId);
         // sale.getId(req.body,function(err1,rows1){
         //   if(err1)
