@@ -20,6 +20,7 @@ var userbranchrole=require('./routes/user_branch_role_routes');
 var saledetail=require('./routes/saledetail_routes');
 var purchase=require('./routes/purchase_routes');
 var purchasedetail=require('./routes/purchasedetail_routes');
+var forgetPassMail=require('./routes/forgetPassMail_routes')
 var app = express();
 
 // view engine setup
@@ -48,6 +49,7 @@ app.use('/userbranchrole',userbranchrole);
 app.use('/saledetail',saledetail);
 app.use('/purchase',purchase);
 app.use('/purchasedetail',purchasedetail);
+app.use('/sendMail',forgetPassMail);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
