@@ -52,6 +52,19 @@ router.post('/',function(req,res,next){
       }
       });
 });
+router.put('/',function(req,res,next){
+  User.changePassword(req.body,function(err,rows){
+          if(err)
+          {
+          res.json(err);
+          }
+          else
+          {
+          res.json(rows);
+          }
+  });
+ });
+
   router.put('/:id?',function(req,res,next){
     User.UpdateUser(req.params.id,req.body,function(err,rows){
             if(err)

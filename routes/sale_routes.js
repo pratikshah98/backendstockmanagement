@@ -36,18 +36,18 @@ router.post('/',function(req,res,next){
       else
       {
         
-      //  res.json(rows);
+        res.send(rows);
       //  console.log("id is"+" "+rows.insertId);
-        sale.getId(req.body,function(err1,rows1){
-          if(err1)
-          {
-            res.json(err1);
-          }
-          else
-          {
-            res.json(rows1);
-          }
-        })
+        // sale.getId(req.body,function(err1,rows1){
+        //   if(err1)
+        //   {
+        //     res.json(err1);
+        //   }
+        //   else
+        //   {
+        //     res.json(rows1);
+        //   }
+        // })
 
       
       }
