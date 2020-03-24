@@ -17,8 +17,8 @@ router.get('/',function(req,res,next){
     
     });
 });
-router.get('/:sid/:iid',function(req, res, next) {
-  saledetail.getSalesdetailbyid(req.params.sid,req.params.iid,function(err, rows) {
+router.get('/:sid',function(req, res, next) {
+  saledetail.getSalesdetailbyid(req.params.sid,function(err, rows) {
     if (err) {
       
       res.json(err);
@@ -28,8 +28,8 @@ router.get('/:sid/:iid',function(req, res, next) {
   });
 });
 
-router.delete("/:sid/:iid", function(req, res, next) {
-  saledetail.deleteSalesdetail(req.params.sid,req.params.iid, function(err, rows) {
+router.delete("/:sid", function(req, res, next) {
+  saledetail.deleteSalesdetail(req.params.sid, function(err, rows) {
     if (err) {
       res.json(err);
     } else {
@@ -38,8 +38,8 @@ router.delete("/:sid/:iid", function(req, res, next) {
   });
 });
 
-router.put("/:sid/:iid", function(req, res, next) {
-  saledetail.updateSalesdetail(req.params.sid,req.params.iid,req.body, function(err, rows) {
+router.put("/:sid", function(req, res, next) {
+  saledetail.updateSalesdetail(req.params.sid,req.body, function(err, rows) {
     if (err) {
       res.json(err);
     } else {

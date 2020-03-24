@@ -17,8 +17,8 @@ router.get('/',function(req,res,next){
     
     });
 });
-router.get('/:pid/:iid',function(req, res, next) {
-  purchasedetail.getPurDetailbyid(req.params.pid,req.params.iid,function(err, rows) {
+router.get('/:pid',function(req, res, next) {
+  purchasedetail.getPurDetailbyid(req.params.pid,function(err, rows) {
     if (err) {
       
       res.json(err);
@@ -28,8 +28,8 @@ router.get('/:pid/:iid',function(req, res, next) {
   });
 });
 
-router.delete("/:purchaseId/:itemId", function(req, res, next) {
-  purchasedetail.deletePurDetail(req.params.purchaseId,req.params.itemId, function(err, rows) {
+router.delete("/:purchaseId", function(req, res, next) {
+  purchasedetail.deletePurDetail(req.params.purchaseId, function(err, rows) {
     if (err) {
       res.json(err);
     } else {
@@ -38,8 +38,8 @@ router.delete("/:purchaseId/:itemId", function(req, res, next) {
   });
 });
 
-router.put("/:purchaseId/:itemId", function(req, res, next) {
-  purchasedetail.updatePurDetail(req.params.purchaseId,req.params.itemId,req.body, function(err, rows) {
+router.put("/:purchaseId", function(req, res, next) {
+  purchasedetail.updatePurDetail(req.params.purchaseId,req.body, function(err, rows) {
     if (err) {
       res.json(err);
     } else {
