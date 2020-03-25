@@ -4,13 +4,14 @@ let Mymail={
     sendEmail:  function(id,callback){
         let transporter = nodemailer.createTransport({
             service: "gmail",
+            secure:true,
             auth: {
                 user: 'keswanisunil98@gmail.com',
                 pass: 'motivationMOTIVATION'
             }
           });
           let otp = '';
-        let p = new Promise(resolve1=>{
+        // let p = new Promise(resolve1=>{
             let digits = '0123456789'; 
             for (let i = 0; i < 6; i++ ) { 
                 otp += digits[Math.floor(Math.random() * 10)]; 
@@ -22,10 +23,10 @@ let Mymail={
                 let s=db.query("update User set otp=?,otpTime=? where userEmailId=?",[otp,expiretime,id]);
                 if(s) {
                     console.log("Inside 1. Transporter "+transporter);
-                    resolve1()
+                    // resolve1()
                 };
-        });
-        p.then(resolve1=>{
+        // });
+        // p.then(resolve1=>{
             console.log("Inside 2");
             var mailOptions = {
                 from: 'keswanisunil98@gmail.com',
@@ -34,13 +35,17 @@ let Mymail={
                 text:"Thanks for registration with our website. This is your OTP "+otp+" This OTP is Only valid for 6 Hours"
               };
               transporter.sendMail(mailOptions, function (error, info) {
-                console.log("Inside 3..Email Sent "+info);
                 if(error){
-                    
+                    // console.log(error);
+                    return db.query(err,callback);
+                }
+                else {
+                    // console.log(info.response);
+                    return db.query(info,callback);
                 }
               });
-              return true;
-        });
+        // });
 }
+
 }
 module.exports=Mymail;
