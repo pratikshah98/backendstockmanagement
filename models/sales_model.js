@@ -1,4 +1,3 @@
-
 var db=require('../dbconnec'); //reference of dbconnection.js
 const uuid=require("uuid-random"); 
 var sale={
@@ -15,15 +14,27 @@ GetAllSaleById:function(sale_saleId,callback){
         return db.query("Select * from Sale where saleId=?",[sale_saleId],callback);
         } ,    
 
-addSale:function(item,callback){
+        
+addSale:function(item,callback){  
+// return db.query("insert into Sale(saleId,salesDate,isInvoiceGenerated,fkSaleTypeId,fkCustomerEmailId,fkBranchId) values(?,?,?,?,?,?)",[item.saleId,item.salesDate,item.isInvoiceGenerated,item.fkSaleTypeId,item.fkCustomerEmailId,item.fkBranchId],callback);
 
-        //     var todaydate=new Date();
-        // let u=uuid();
-        // console.log(u);
-        // return db.query("insert into Sale(saleId,salesDate,isInvoiceGenerated,fkSaleTypeId,fkCustomerEmailId,fkBranchId) values(?,?,?,?,?,?)",[u,item.salesDate,item.isInvoiceGenerated,item.fkSaleTypeId,item.fkCustomerEmailId,item.fkBranchId],callback);
-        //  return db.query("Select saleId from Sale where saleId=?",u,callback);  
+        
+let u=uuid();
+           
+let promise= new Promise((resolve, reject) => {
+    let d=db.query("insert into Sale(saleId,salesDate,isInvoiceGenerated,fkSaleTypeId,fkCustomerEmailId,fkBranchId) values(?,?,?,?,?,?)",[u,item.salesDate,item.isInvoiceGenerated,item.fkSaleTypeId,item.fkCustomerEmailId,item.fkBranchId]);
+    if(d) resolve(d);
+    else reject(d);
+});
+promise.then(function(res){
+    return callback(false,u);
 
-return db.query("insert into Sale(saleId,salesDate,isInvoiceGenerated,fkSaleTypeId,fkCustomerEmailId,fkBranchId) values(?,?,?,?,?,?)",[item.saleId,item.salesDate,item.isInvoiceGenerated,item.fkSaleTypeId,item.fkCustomerEmailId,item.fkBranchId],callback);
+},
+function(rej){
+   
+ return callback(rej,false);
+   
+});
 },
     
 updateSale:function(id,item,callback){

@@ -1,12 +1,28 @@
 var db=require('../dbconnec'); 
+const uuid=require("uuid-random"); 
  
 var branch={
- 
+    addBranch:function(item,callback)
+    {
+             
+            let u=uuid();
+           
+        let promise= new Promise((resolve, reject) => {
+            let d=db.query('insert into branch (branchId,branchName,branchAddress,branchPhoneNo) values(?,?,?,?)',[u,item.branchName,item.branchAddress,item.branchPhoneNo]);
+            if(d) resolve(d);
+            else reject(d);
+        });
+        promise.then(function(res){
+            return callback(false,u);
+        
+        },
+        function(rej){
+           
+         return callback(rej,false);
+           
+        });
+    },
 
-addBranch:function(item,callback)
-{
-    return db.query('insert into branch (branchName,branchAddress,branchPhoneNo) values(?,?,?)',[item.branchName,item.branchAddress,item.branchPhoneNo],callback);
-},
 getAllBranch:function(callback)
 {
     return db.query("select * from branch",callback);
