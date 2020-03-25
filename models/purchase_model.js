@@ -52,5 +52,9 @@ function(rej){
   return db.query("select * from purchase join branch on (purchase.fkBranchId=branch.branchId) join supplier on(purchase.fkSupplierEmailId=supplier.supplierEmailId) where purchaseId=?",[id],callback);    
    },
 
+   getpurchasebybranchid:function(id,callback){
+    return db.query("select * from purchase where fkBranchId=?",[id],callback);
+ }
+
 };
 module.exports=purchase;
