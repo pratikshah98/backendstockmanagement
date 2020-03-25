@@ -6,16 +6,20 @@ var saledetail={
     addSalesdetail:function(item,callback){
         return db.query("insert into salesdetails values(?,?,?,?)",[item.fkSaleId,item.fkItemId,item.creditRate,item.saleQuantity],callback);
     },
-    deleteSalesdetail:function(sid,iid,callback){
-        return db.query("delete from salesdetails where fkSaleId=? and fkItemId=?",[sid,iid],callback);
+    deleteSalesdetail:function(sid,callback){
+        return db.query("delete from salesdetails where fkSaleId=?",[sid],callback);
     },
    
-    getSalesdetailbyid:function(sid,iid,callback){
-        return db.query("select * from salesdetails where fkSaleId=? and fkItemId=?",[sid,iid],callback);
+    getSalesdetailbyid:function(sid,callback){
+        return db.query("select * from salesdetails where fkSaleId=?",[sid],callback);
     },
-    updateSalesdetail:function(sid,iid,item,callback){
+    updateSalesdetail:function(sid,item,callback){
 
-        return db.query("update salesdetails set creditRate=?,saleQuantity=? where fkSaleId=? and fkItemId=?",[item.creditRate,item.saleQuantity,sid,iid],callback);
+        return db.query("update salesdetails set fkItemId=?,creditRate=?,saleQuantity=? where fkSaleId=?",[item.fkItemId,item.creditRate,item.saleQuantity,sid],callback);
+    },
+    saledetailAndItemjoinbyid:function(id,callback)
+    {
+        return db.query("select * from salesdetails s,item i where s.fkItemId=i.itemId and  s.fkSaleId=?",[id],callback);     
     }
 
 };

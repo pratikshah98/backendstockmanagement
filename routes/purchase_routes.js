@@ -45,18 +45,18 @@ router.post("/", function(req, res, next) {
     if (err) {
       res.json(err);
     } else {
-      //res.json(rows);
+      res.json(rows);
 
-      purchase.getPurchaseId(req.body,function(err1,rows1){
-        if(err1)
-        {
-          res.json(err1);
-        }
-        else
-        {
-          res.json(rows1);
-        }
-      })
+      // purchase.getPurchaseId(req.body,function(err1,rows1){
+      //   if(err1)
+      //   {
+      //     res.json(err1);
+      //   }
+      //   else
+      //   {
+      //     res.json(rows1);
+      //   }
+      // })
     }
   });
 });
