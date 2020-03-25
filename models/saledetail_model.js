@@ -20,6 +20,9 @@ var saledetail={
     saledetailAndItemjoinbyid:function(id,callback)
     {
         return db.query("select * from salesdetails s,item i where s.fkItemId=i.itemId and  s.fkSaleId=?",[id],callback);     
+    },
+    salejoinbycustomerid:function(id,callback){
+        return db.query("select sd.fkItemId,sum(sd.saleQuantity) from Sale s,salesdetails sd where s.saleId=sd.fkSaleId and s.fkCustomerEmailId=? GROUP BY sd.fkItemId",[id],callback);
     }
 
 };

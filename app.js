@@ -30,6 +30,7 @@ var salebybranchid=require('./routes/salebybranchid_routes');
 var purchasebybranchid=require('./routes/purchasebybranchid_routes');
 var userbybranchid=require('./routes/userbybranchid_routes');
 var stockbybranchid=require('./routes/stockbybranchid_routes');
+var salejoinbycustomerid=require('./routes/salejoinbycustomerid_routes');
 
 
 
@@ -71,6 +72,7 @@ app.use('/salebybranchid',salebybranchid);
 app.use('/purchasebybranchid',purchasebybranchid);
 app.use('/userbybranchid',userbybranchid);
 app.use('/stockbybranchid',stockbybranchid);
+app.use('/salejoinbycustomerid',salejoinbycustomerid);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
