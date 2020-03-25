@@ -5,7 +5,7 @@ var amount={
     },
     addAmountDue:function(item,callback){
         //let transactionDate = new Date();
-        return db.query("insert into amountdue values(?,?,?,?)",[item.fkCustomerEmailId,item.transactionDate,item.amountDue,item.amountPaid],callback);
+        return db.query("insert into amountdue values(?,?,?,?,?)",[item.fkCustomerEmailId,item.transactionDate,item.amountDue,item.amountPaid,item.description],callback);
     },
     deleteAmountDue:function(id,callback){
         return db.query("delete from amountdue where fkCustomerEmailId=?",[id],callback);
@@ -17,7 +17,7 @@ var amount={
     updateAmountDue:function(id,item,callback){
         
         //let transactionDate = new Date();
-        return db.query("update amountdue set transactionDate=?,amountDue=?,amountPaid=? where fkCustomerEmailId=?",[item.transactionDate,item.amountDue,item.amountPaid,id],callback);
+        return db.query("update amountdue set transactionDate=?,amountDue=?,amountPaid=?,description=? where fkCustomerEmailId=?",[item.transactionDate,item.amountDue,item.amountPaid,item.description,id],callback);
     }
 
 };
