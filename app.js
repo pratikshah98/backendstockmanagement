@@ -67,7 +67,7 @@ app.use('/salebranchcustomer',salebranchcustomer);
 app.use('/purchasebranchsupplier',purchasebranchsupplier);
 app.use('/saledetail_item',saledetail_item);
 app.use('/purchasedetail_item',purchasedetail_item);
-app.use('/amount',amount);
+app.use('/amountdue',amount);
 app.use('/salebybranchid',salebybranchid);
 app.use('/purchasebybranchid',purchasebybranchid);
 app.use('/userbybranchid',userbybranchid);
