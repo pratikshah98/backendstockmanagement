@@ -10,6 +10,7 @@ router.post('/',function(req,res,next)
             res.json(err);
         }
         else{
+            // console.log(rows);
             res.json(rows);
         }
         });
