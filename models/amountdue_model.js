@@ -12,7 +12,7 @@ var amount={
     },
    
     getAmountDueById:function(id,callback){
-        return db.query("select * from amountdue where fkCustomerEmailId=?",[id],callback);
+        return db.query("select * from amountdue where fkCustomerEmailId=? order by transactionDate DESC",[id],callback);
     },
     updateAmountDue:function(id,item,callback){
         
