@@ -12,12 +12,16 @@ var amount={
     },
    
     getAmountDueById:function(id,callback){
-        return db.query("select * from amountdue where fkCustomerEmailId=?",[id],callback);
+        return db.query("select * from amountdue where fkCustomerEmailId=? order by transactionDate DESC",[id],callback);
     },
     updateAmountDue:function(id,item,callback){
         
         //let transactionDate = new Date();
         return db.query("update amountdue set transactionDate=?,amountDue=?,amountPaid=?,description=? where fkCustomerEmailId=?",[item.transactionDate,item.amountDue,item.amountPaid,item.description,id],callback);
+    },
+    toprecordbycustomerid:function(id,callback)
+    {
+        return db.query("select * from amountdue where fkCustomerEmailId=? order by transactionDate DESC LIMIT 1",[id],callback);
     }
 
 };
