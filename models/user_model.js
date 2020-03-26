@@ -10,12 +10,13 @@ getLogin:function(item,callback){
         
 GetAllUser:function(callback){
  
-return db.query("Select * from User",callback);
+//return db.query("Select * from User",callback);
+return db.query("select * from User join branch on (User.fkBranchId=branch.branchId) join role on(User.fkRoleId=role.roleId)",callback);    
 } ,
 
 GetAllUserById:function(user_emailId,callback){
  
-        return db.query("Select * from User where userEmailId=?",[user_emailId],callback);
+        return db.query("select * from User join branch on (User.fkBranchId=branch.branchId) join role on(User.fkRoleId=role.roleId) and userEmailId=?",[user_emailId],callback);
         } ,
         
 AddUser:function(item,callback){
@@ -30,11 +31,7 @@ AddUser:function(item,callback){
        
             return db.query("delete from User where userEmailId in (?)",[id],callback);
       } ,
-      getBranchAndRoleName:function(callback)
-      {
-        //return db.query("Select u.*,r.*,b.* from User u,branch b,role r where r.roleId=u.fkRoleID and b.branchId=u.fkBranchId",callback); 
-        return db.query("select * from User join branch on (User.fkBranchId=branch.branchId) join role on(User.fkRoleId=role.roleId)",callback);    
-      },
+     
 
       changePassword:function(item,callback){
         return db.query("update User set userPassword=? where userEmailId=?",[item.userPassword,item.userEmailId],callback);

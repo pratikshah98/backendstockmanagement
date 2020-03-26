@@ -7,7 +7,7 @@ return db.query("select i.*,c.* from invoice i,customer c where i.fkCustomerEmai
 },
 getInvoiceById:function(Id,callback){
  
-    return db.query("Select * from invoice where fkCustomerEmailId=?",[Id],callback);
+    return db.query("Select i.*,c.* from invoice i,customer c where i.fkCustomerEmailId=c.customerEmailId and fkCustomerEmailId=?",[Id],callback);
   },
     
 addInvoice:function(item,callback){
