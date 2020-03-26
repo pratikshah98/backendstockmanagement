@@ -1,10 +1,30 @@
 var db=require('../dbconnec');
+const uuid=require("uuid-random"); 
+
 var purchase={
     getAllPurchase:function(callback){
         return db.query('select * from purchase',callback);
     },
     addPurchase:function(item,callback){
-        return db.query("insert into purchase(purchaseId,purchaseDate,fkSupplierEmailId,fkBranchId) values(?,?,?,?)",[item.purchaseId,item.purchaseDate,item.fkSupplierEmailId,item.fkBranchId],callback);
+        // return db.query("insert into purchase(purchaseId,purchaseDate,fkSupplierEmailId,fkBranchId) values(?,?,?,?)",[item.purchaseId,item.purchaseDate,item.fkSupplierEmailId,item.fkBranchId],callback);
+
+                
+let u=uuid();
+           
+let promise= new Promise((resolve, reject) => {
+    let d=db.query("insert into purchase(purchaseId,purchaseDate,fkSupplierEmailId,fkBranchId) values(?,?,?,?)",[u,item.purchaseDate,item.fkSupplierEmailId,item.fkBranchId]);
+    if(d) resolve(d);
+    else reject(d);
+});
+promise.then(function(res){
+    return callback(false,u);
+
+},
+function(rej){
+   
+ return callback(rej,false);
+   
+});
     },
     deletePurchase:function(id,callback){
         return db.query("delete from purchase where purchaseId=?",[id],callback);
@@ -31,6 +51,10 @@ var purchase={
   
   return db.query("select * from purchase join branch on (purchase.fkBranchId=branch.branchId) join supplier on(purchase.fkSupplierEmailId=supplier.supplierEmailId) where purchaseId=?",[id],callback);    
    },
+
+   getpurchasebybranchid:function(id,callback){
+    return db.query("select * from purchase where fkBranchId=?",[id],callback);
+ }
 
 };
 module.exports=purchase;

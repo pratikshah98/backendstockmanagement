@@ -39,19 +39,9 @@ AddUser:function(item,callback){
       changePassword:function(item,callback){
         return db.query("update User set userPassword=? where userEmailId=?",[item.userPassword,item.userEmailId],callback);
     },
-
-
- 
-//     DeleteAllUser:function(item,callback){
-//             var delarr=[];
-//             for(i=0;i<item.length;i++)
-//             {
-//                 delarr[i]=item[i].user_id;
-//             }
-//         return db.query("delete from user_tbl where user_id in (?)",[delarr],callback);
-//         },
-    
-    
+    getuserbybranchid:function(id,callback){
+        return db.query("select * from User where fkBranchId=?",[id],callback);
+     }
   
 }
  module.exports=User;

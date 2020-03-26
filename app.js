@@ -26,6 +26,15 @@ var salebranchcustomer=require('./routes/salebranchcustomer_join_routes');
 var purchasebranchsupplier=require('./routes/purchasebranchsupplier_join_routes');
 var saledetail_item=require('./routes/saledetails_item_join_routes');
 var purchasedetail_item=require('./routes/purchasedetails_item_join_routes');
+var amount=require('./routes/amountdue_routes');
+var salebybranchid=require('./routes/salebybranchid_routes');
+var purchasebybranchid=require('./routes/purchasebybranchid_routes');
+var userbybranchid=require('./routes/userbybranchid_routes');
+var stockbybranchid=require('./routes/stockbybranchid_routes');
+var salejoinbycustomerid=require('./routes/salejoinbycustomerid_routes');
+var toprecordbycustomerid=require('./routes/toprecordbycustomerid_routes');
+
+
 
 var app = express();
 
@@ -61,6 +70,13 @@ app.use('/salebranchcustomer',salebranchcustomer);
 app.use('/purchasebranchsupplier',purchasebranchsupplier);
 app.use('/saledetail_item',saledetail_item);
 app.use('/purchasedetail_item',purchasedetail_item);
+app.use('/amountdue',amount);
+app.use('/salebybranchid',salebybranchid);
+app.use('/purchasebybranchid',purchasebybranchid);
+app.use('/userbybranchid',userbybranchid);
+app.use('/stockbybranchid',stockbybranchid);
+app.use('/salejoinbycustomerid',salejoinbycustomerid);
+app.use('/toprecordbycustomerid',toprecordbycustomerid);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));

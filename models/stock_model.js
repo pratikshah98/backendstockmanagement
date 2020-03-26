@@ -23,7 +23,11 @@ updateStock:function(fk_itemId,fk_branchId,item,callback){
 deleteStock:function(fk_itemId,fk_branchId,callback){
 
     return db.query("delete from Stock where fkItemId=? and fkBranchId=? ",[fk_itemId,fk_branchId],callback);
-} 
+} ,
+getstockbybranchid:function(id,callback){
+    return db.query("select * from Stock where fkBranchId=?",[id],callback);
+ }
+
 
     
     
