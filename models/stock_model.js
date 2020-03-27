@@ -5,12 +5,13 @@ var stock={
     
 GetAllStock:function(callback){
  
-return db.query("Select * from Stock",callback);
+//return db.query("Select * from Stock",callback);
+return db.query("Select s.*,i.*,b.* from stock s,item i,branch b where s.fkItemId=i.itemId and s.fkBranchId=b.branchId",callback);
 } ,
 
 GetAllStockById:function(fk_itemId,fk_branchId,callback){
  
-        return db.query("Select * from Stock where fkItemId=? and fkBranchId=? ",[fk_itemId,fk_branchId],callback);
+        return db.query("Select s.*,i.*,b.* from stock s,item i,branch b where s.fkItemId=i.itemId and s.fkBranchId=b.branchId and fkItemId=? and fkBranchId=? ",[fk_itemId,fk_branchId],callback);
 },
 addStock:function(item,callback){
     return db.query("insert into Stock(fkItemId,fkBranchId,stockQuantity) values(?,?,?)",[item.fkItemId,item.fkBranchId,item.stockQuantity],callback);

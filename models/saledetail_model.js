@@ -1,7 +1,8 @@
 var db=require('../dbconnec');
 var saledetail={
     getAllSalesdetail:function(callback){
-        return db.query('select * from salesdetails',callback);
+       // return db.query('select * from salesdetails',callback);
+       return db.query('select * from salesdetails as sd join sale as s on s.saleId=sd.fkSaleId join item as i on sd.fkItemId=i.itemId',callback);
     },
     addSalesdetail:function(item,callback){
         return db.query("insert into salesdetails values(?,?,?,?)",[item.fkSaleId,item.fkItemId,item.creditRate,item.saleQuantity],callback);
@@ -11,7 +12,7 @@ var saledetail={
     },
    
     getSalesdetailbyid:function(sid,callback){
-        return db.query("select * from salesdetails where fkSaleId=?",[sid],callback);
+        return db.query("select * from salesdetails as sd join sale as s on s.saleId=sd.fkSaleId join item as i on sd.fkItemId=i.itemId and fkSaleId=?",[sid],callback);
     },
     updateSalesdetail:function(sid,item,callback){
 

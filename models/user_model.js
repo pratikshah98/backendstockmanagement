@@ -16,7 +16,7 @@ return db.query("select * from User join branch on (User.fkBranchId=branch.branc
 } ,
 GetAllUserById:function(user_emailId,callback){
  
-        return db.query("Select * from User where userEmailId=?",[user_emailId],callback);
+        return db.query("select * from User join branch on (User.fkBranchId=branch.branchId) join role on(User.fkRoleId=role.roleId) and userEmailId=?",[user_emailId],callback);
         } ,
         
 AddUser:function(item,callback){
@@ -31,6 +31,10 @@ AddUser:function(item,callback){
        
             return db.query("delete from User where userEmailId in (?)",[id],callback);
       } ,
+<<<<<<< HEAD
+=======
+     
+>>>>>>> ff5ad2d9cc84f54b398587648c7bd4911700ad32
 
       changePassword:function(item,callback){
         return db.query("update User set userPassword=? where userEmailId=?",[item.userPassword,item.userEmailId],callback);
