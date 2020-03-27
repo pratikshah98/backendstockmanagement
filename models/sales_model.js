@@ -5,8 +5,8 @@ var sale={
     
 GetAllSale:function(callback){
  
+  return db.query("select * from Sale join branch on (Sale.fkBranchId=branch.branchId) join customer on(Sale.fkCustomerEmailId=customer.customerEmailId)",callback);    
         
-return db.query("Select * from Sale",callback);
 } ,
 
 GetAllSaleById:function(sale_saleId,callback){
@@ -51,18 +51,14 @@ updateSale:function(id,item,callback){
 //         return db.query("select saleId from Sale where salesDate=? and isInvoiceGenerated=? and fkSaleTypeId=? and fkCustomerEmailId=? and fkBranchId=?",[item.salesDate,item.isInvoiceGenerated,item.fkSaleTypeId,item.fkCustomerEmailId,item.fkBranchId],callback);
 // }
 
-getBranchAndcustomerName:function(callback)
-{
- 
-  return db.query("select * from Sale join branch on (Sale.fkBranchId=branch.branchId) join customer on(Sale.fkCustomerEmailId=customer.customerEmailId)",callback);    
-},
 getBranchAndcustomerNameById:function(id,callback)
 {
  
   return db.query("select * from Sale join branch on (Sale.fkBranchId=branch.branchId) join customer on(Sale.fkCustomerEmailId=customer.customerEmailId) where saleId=?",[id],callback);    
 },
 getsalebybranchid:function(id,callback){
-   return db.query("select * from Sale where fkBranchId=?",[id],callback);
+   return db.query("select * from Sale join customer on(Sale.fkCustomerEmailId=customer.customerEmailId) where fkBranchId=?",[id],callback);
+   
 }
   
 }
