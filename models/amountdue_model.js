@@ -2,7 +2,7 @@ var db=require('../dbconnec');
 var amount={
     getAllAmountDue:function(callback){
         //return db.query('select * from amountdue',callback);
-        return db.query('select a.*,c.* from amountdue a,customer c where a.fkCustomerEmailId=c.customerEmailId',callback)
+        return db.query('select * from amountdue join customer on (amountdue.fkCustomerEmailId=customer.customerEmailId)',callback)
     },
     addAmountDue:function(item,callback){
         //let transactionDate = new Date();
@@ -13,7 +13,7 @@ var amount={
     },
    
     getAmountDueById:function(id,callback){
-        return db.query("select a.*,c.* from amountdue a,customer c where a.fkCustomerEmailId=c.customerEmailId and a.fkCustomerEmailId=? order by a.transactionDate DESC",[id],callback);
+        return db.query("select * from amountdue join customer on (amountdue.fkCustomerEmailId=customer.customerEmailId) and amountdue.fkCustomerEmailId=? order by amountdue.transactionDate DESC",[id],callback);
     },
     updateAmountDue:function(id,item,callback){
         
