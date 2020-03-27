@@ -12,7 +12,7 @@ return db.query("select * from sale as s join customer as c on c.customerEmailId
 
 GetAllSaleById:function(id,callback){
  
-    return db.query("select * from Sale join branch on (Sale.fkBranchId=branch.branchId) join customer on(Sale.fkCustomerEmailId=customer.customerEmailId) where saleId=?",[id],callback);
+    return db.query("select * from Sale join branch on (Sale.fkBranchId=branch.branchId) join customer on(Sale.fkCustomerEmailId=customer.customerEmailId) join salestype  on salestype.saleTypeId=Sale.fkSaleTypeId  where saleId=?",[id],callback);
         } ,    
 
         
