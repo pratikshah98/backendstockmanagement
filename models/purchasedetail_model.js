@@ -2,7 +2,7 @@ var db=require('../dbconnec');
 var purchasedetail={
     getAllPurDetail:function(callback){
        // return db.query('select * from purchasedetails',callback);
-       return db.query('select pd.*,i.*,p.* from purchasedetails pd,item i,purchase p where pd.fkPurchaseId=p.purchaseId And pd.fkItemId=i.itemId',callback);
+       return db.query('select * from purchasedetails join item on (purchasedetails.fkItemId=item.itemId) join purchase on (purchase.purchaseId=purchasedetails.fkPurchaseId)',callback);
     },
     addPurDetail:function(item,callback){
         return db.query("insert into purchasedetails values(?,?,?)",[item.fkPurchaseId,item.fkItemId,item.purchaseQuantity],callback);
@@ -12,7 +12,7 @@ var purchasedetail={
     },
    
     getPurDetailbyid:function(id,callback){
-        return db.query("select pd.*,i.*,p.* from purchasedetails pd,item i,purchase p where pd.fkPurchaseId=p.purchaseId And pd.fkItemId=i.itemId and fkPurchaseId=?",[id],callback);
+        return db.query("select * from purchasedetails join item on (purchasedetails.fkItemId=item.itemId) join purchase on (purchase.purchaseId=purchasedetails.fkPurchaseId) and purchasedetails.fkPurchaseId=?",[id],callback);
     },
     updatePurDetail:function(id,item,callback){
 
@@ -20,7 +20,7 @@ var purchasedetail={
     },
     purchasedetailAndItemjoinbyid:function(id,callback)
     {
-        return db.query("select * from purchasedetails p,item i where p.fkItemId=i.itemId and  p.fkPurchaseId=?",[id],callback);   
+        return db.query("select * from purchasedetails join item on (purchasedetails.fkItemId=item.itemId) and  purchasedetails.fkPurchaseId=?",[id],callback);   
     }
 
 };

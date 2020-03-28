@@ -28,11 +28,11 @@ addItem:function(itemt,callback)
 },
 getAllItem:function(callback)
 {
-    //return db.query("select * from item",callback);
-    return db.query("select i.*,s.* from item i,supplier s where i.fkSupplierEmailId=s.supplierEmailId",callback);
+  
+    return db.query("select * from item join supplier on (item.fkSupplierEmailId=supplier.supplierEmailId)",callback);
 },
 getItemByid:function(id,callback){ 
-    return db.query("select i.*,s.* from item i,supplier s where i.fkSupplierEmailId=s.supplierEmailId and itemId=?",[id],callback);     
+    return db.query("select * from item join supplier on (item.fkSupplierEmailId=supplier.supplierEmailId) and itemId=?",[id],callback);     
 },
 updateItem:function(id,itemt,callback){
     return db.query("update item set name=?,gsm=?,size=?,minimumRate=?,reorderLevel=?,fkSupplierEmailId=? where itemId=?",[itemt.name,itemt.gsm,itemt.size,itemt.minimumRate,itemt.reorderLevel,itemt.fkSupplierEmailId,itemt.itemId],callback);

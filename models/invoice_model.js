@@ -3,11 +3,11 @@ var db=require('../dbconnec'); //reference of dbconnection.js
 var invoice={
 getInvoice:function(callback)
 {
-return db.query("select i.*,c.* from invoice i,customer c where i.fkCustomerEmailId=c.customerEmailId",callback);
+return db.query("select * from invoice join customer on (invoice.fkCustomerEmailId=customer.customerEmailId)",callback);
 },
 getInvoiceById:function(Id,callback){
  
-    return db.query("Select i.*,c.* from invoice i,customer c where i.fkCustomerEmailId=c.customerEmailId and fkCustomerEmailId=?",[Id],callback);
+    return db.query("select * from invoice join customer on (invoice.fkCustomerEmailId=customer.customerEmailId) and fkCustomerEmailId=?",[Id],callback);
   },
     
 addInvoice:function(item,callback){

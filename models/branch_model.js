@@ -8,7 +8,7 @@ var branch={
             let u=uuid();
            
         let promise= new Promise((resolve, reject) => {
-            let d=db.query('insert into branch (branchId,branchName,branchAddress,branchPhoneNo) values(?,?,?,?)',[u,item.branchName,item.branchAddress,item.branchPhoneNo]);
+            let d=db.query('insert into branch (branchId,branchName,branchAddress,branchPhoneNo,gstNumber) values(?,?,?,?,?)',[u,item.branchName,item.branchAddress,item.branchPhoneNo,item.gstNumber]);
             if(d) resolve(d);
             else reject(d);
         });
@@ -33,7 +33,7 @@ getBranchByid:function(id,callback){
 },
 updateBranch:function(id,item,callback){
 
-    return db.query("update branch set branchName=?,branchAddress=?,branchPhoneNo=? where branchId=?",[item.branchName,item.branchAddress,item.branchPhoneNo,item.branchId],callback);
+    return db.query("update branch set branchName=?,branchAddress=?,branchPhoneNo=?,gstNumber=? where branchId=?",[item.branchName,item.branchAddress,item.branchPhoneNo,item.gstNumber,item.branchId],callback);
 },
 deleteBranch:function(id,callback){
     return db.query("delete from branch where branchId=?",[id],callback);
