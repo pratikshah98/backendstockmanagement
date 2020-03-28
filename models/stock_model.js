@@ -6,12 +6,11 @@ var stock={
 GetAllStock:function(callback){
  
 //return db.query("Select * from Stock",callback);
-return db.query("Select s.*,i.*,b.* from stock s,item i,branch b where s.fkItemId=i.itemId and s.fkBranchId=b.branchId",callback);
+return db.query("Select * from Stock as s join item as i on(s.fkItemID=i.itemId) join branch b on(s.fkBranchId=b.branchId)",callback);
 } ,
 
-GetAllStockById:function(fk_itemId,fk_branchId,callback){
- 
-        return db.query("Select s.*,i.*,b.* from stock s,item i,branch b where s.fkItemId=i.itemId and s.fkBranchId=b.branchId and fkItemId=? and fkBranchId=? ",[fk_itemId,fk_branchId],callback);
+GetAllStockById:function(fk_itemId,fk_branchId,callback){ 
+    return db.query("Select * from Stock as s join item as i on(s.fkItemID=i.itemId) join branch b on(s.fkBranchId=b.branchId) where fkItemId=? and fkBranchId=? ",[fk_itemId,fk_branchId],callback);
 },
 addStock:function(item,callback){
     return db.query("insert into Stock(fkItemId,fkBranchId,stockQuantity) values(?,?,?)",[item.fkItemId,item.fkBranchId,item.stockQuantity],callback);
@@ -26,12 +25,8 @@ deleteStock:function(fk_itemId,fk_branchId,callback){
     return db.query("delete from Stock where fkItemId=? and fkBranchId=? ",[fk_itemId,fk_branchId],callback);
 } ,
 getstockbybranchid:function(id,callback){
-    return db.query("select * from Stock where fkBranchId=?",[id],callback);
- }
+    return db.query("select * from Stock as s join item as i on (s.fkItemId=i.itemId) where fkBranchId=?",[id],callback);
+},
 
-
-    
-    
-  
 }
  module.exports=stock;

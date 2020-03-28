@@ -31,16 +31,13 @@ AddUser:function(item,callback){
        
             return db.query("delete from User where userEmailId in (?)",[id],callback);
       } ,
-<<<<<<< HEAD
-=======
      
->>>>>>> ff5ad2d9cc84f54b398587648c7bd4911700ad32
 
       changePassword:function(item,callback){
         return db.query("update User set userPassword=? where userEmailId=?",[item.userPassword,item.userEmailId],callback);
     },
     getuserbybranchid:function(id,callback){
-        return db.query("select * from User where fkBranchId=?",[id],callback);
+        return db.query("select * from User join Role on(fkRoleId=roleId) where fkBranchId=?",[id],callback);
      }
   
 }
