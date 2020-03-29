@@ -6,8 +6,8 @@ let Mymail={
             service: "gmail",
             secure:true,
             auth: {
-                user: 'keswanisunil98@gmail.com',
-                pass: 'motivationMOTIVATION'
+                user: 'dhairyajariwala26@gmail.com',
+                pass: 'abcdEfg@12'
             }
           });
           let otp = '';
@@ -29,8 +29,8 @@ let Mymail={
         // p.then(resolve1=>{
             console.log("Inside 2");
             var mailOptions = {
-                from: 'keswanisunil98@gmail.com',
-                to: 'keswani706@gmail.com',
+                from: 'dhairyajariwala26@gmail.com',
+                to: id,    
                 subject: 'OTP For Reset Password',
                 text:"Thanks for registration with our website. This is your OTP "+otp+" This OTP is Only valid for 6 Hours"
               };
