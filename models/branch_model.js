@@ -22,7 +22,6 @@ var branch={
            
         });
     },
-
 getAllBranch:function(callback)
 {
     return db.query("select * from branch",callback);

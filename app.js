@@ -16,13 +16,11 @@ var Stock=require('./routes/stock_routes');
 var item=require('./routes/item_routes');
 var saletype=require('./routes/saletype_routes');
 var supplier=require('./routes/supplier_routes');
-
-var saledetail=require('./routes/saledetail_routes');
+var saledetail=require('./routes/saledetail_routes' );
 var purchase=require('./routes/purchase_routes');
 var purchasedetail=require('./routes/purchasedetail_routes');
+var forgetPassMail=require('./routes/forgetPassMail_routes')
 var changepassword=require('./routes/user_routes');
-
-
 var saledetail_item=require('./routes/saledetails_item_join_routes');
 var purchasedetail_item=require('./routes/purchasedetails_item_join_routes');
 var amount=require('./routes/amountdue_routes');
@@ -34,6 +32,15 @@ var salejoinbycustomerid=require('./routes/salejoinbycustomerid_routes');
 var toprecordbycustomerid=require('./routes/toprecordbycustomerid_routes');
 var invoice=require('./routes/invoice_routes');
 var invoiceupload=require('./routes/invoicefileupload_routes');
+var report=require('./routes/report_routes');
+var purchasereport=require('./routes/report_purchase_routes');
+var salereportitemdate=require('./routes/reportsale_itemdate_routes');
+var purchasereport_dateitem=require('./routes/report_purchase_itemdate_routes');
+var salereportbymonth=require('./routes/salereport_month_routes');
+var purchasereportbymonth=require('./routes/purchase_report_month_routes');
+var stockreport=require('./routes/report_stock_routes');
+var salereport_passingmonth=require('./routes/salereport_passingmonth_routes');
+var purchasereport_passingmonth=require('./routes/purchasereport_passingmonthyear_routes');
 
 
 
@@ -61,13 +68,11 @@ app.use('/Stock',Stock);
 app.use('/item',item);
 app.use('/saletype',saletype);
 app.use('/supplier',supplier);
-
 app.use('/saledetail',saledetail);
 app.use('/purchase',purchase);
 app.use('/purchasedetail',purchasedetail);
+app.use('/sendMail',forgetPassMail);
 app.use('/changepassword',changepassword);
-
-
 app.use('/saledetail_item',saledetail_item);
 app.use('/purchasedetail_item',purchasedetail_item);
 app.use('/amountdue',amount);
@@ -79,6 +84,15 @@ app.use('/salejoinbycustomerid',salejoinbycustomerid);
 app.use('/toprecordbycustomerid',toprecordbycustomerid);
 app.use('/invoice',invoice);
 app.use('/invoiceupload',invoiceupload);
+app.use('/report',report);
+app.use('/purchasereport',purchasereport);
+app.use('/salereportitemdate',salereportitemdate);
+app.use('/purchasereport_dateitem',purchasereport_dateitem);
+app.use('/salereportbymonth',salereportbymonth);
+app.use('/purchasereportbymonth',purchasereportbymonth);
+app.use('/stockreport',stockreport);
+app.use('/salereport_passingmonth',salereport_passingmonth);
+app.use('/purchasereport_passingmonth',purchasereport_passingmonth);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));

@@ -5,14 +5,13 @@ var sale={
     
 GetAllSale:function(callback){
  
+  return db.query("select * from Sale join branch on (Sale.fkBranchId=branch.branchId) join customer on(Sale.fkCustomerEmailId=customer.customerEmailId) join salestype on (Sale.fkSaleTypeId=salestype.saleTypeId)",callback);    
         
-//return db.query("Select * from Sale",callback);
-return db.query("select * from sale as s join customer as c on c.customerEmailId=s.fkCustomerEmailId join salestype as st on st.saleTypeId=s.fkSaleTypeId join branch as b on b.branchId=s.fkBranchId",callback);
 } ,
 
 GetAllSaleById:function(id,callback){
  
-    return db.query("select * from Sale join branch on (Sale.fkBranchId=branch.branchId) join customer on(Sale.fkCustomerEmailId=customer.customerEmailId) join salestype  on salestype.saleTypeId=Sale.fkSaleTypeId  where saleId=?",[id],callback);
+    return db.query("select * from Sale join branch on (Sale.fkBranchId=branch.branchId) join customer on(Sale.fkCustomerEmailId=customer.customerEmailId) join salestype on (Sale.fkSaleTypeId=salestype.saleTypeId) where saleId=?",[id],callback);
         } ,    
 
         
