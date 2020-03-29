@@ -29,7 +29,7 @@ addItem:function(itemt,callback)
 getAllItem:function(callback)
 {
   
-    return db.query("select * from item join supplier on (item.fkSupplierEmailId=supplier.supplierEmailId)",callback);
+    return db.query("select * from item left join supplier on (item.fkSupplierEmailId=supplier.supplierEmailId)",callback);
 },
 getItemByid:function(id,callback){ 
     return db.query("select * from item join supplier on (item.fkSupplierEmailId=supplier.supplierEmailId) and itemId=?",[id],callback);     

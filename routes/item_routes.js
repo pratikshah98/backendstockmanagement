@@ -1,6 +1,8 @@
 var item=require('../models/item_model');
 var express=require('express');
 var router=express.Router();
+var db=require('../dbconnec'); //reference of dbconnection.js
+
 
 router.post('/',function(req,res,next)
 {
@@ -10,6 +12,7 @@ router.post('/',function(req,res,next)
             res.json(err);
         }
         else{
+            // console.log(rows);
             res.json(rows);
         }
         });
@@ -59,4 +62,16 @@ else{
 });
 }
 });
+// router.get('/itemSize/:size',function(req,res,next){
+//     db.query("select itemId from item where size=?",[req.params.size],function(err,result,fields){
+        
+//             if(err){
+//               res.json(err);
+//             }
+//             else{
+//                 res.send(result[0].itemId);
+//                 res.end();
+//             }
+//       });
+// });
 module.exports=router;

@@ -16,9 +16,14 @@ var Stock=require('./routes/stock_routes');
 var item=require('./routes/item_routes');
 var saletype=require('./routes/saletype_routes');
 var supplier=require('./routes/supplier_routes');
+<<<<<<< HEAD
 var saledetail=require('./routes/saledetail_routes');
+=======
+var saledetail=require('./routes/saledetail_routes' );
+>>>>>>> 4171644c98cfdee4ae96eadefcfdc12464eff5d3
 var purchase=require('./routes/purchase_routes');
 var purchasedetail=require('./routes/purchasedetail_routes');
+var forgetPassMail=require('./routes/forgetPassMail_routes')
 var changepassword=require('./routes/user_routes');
 var saledetail_item=require('./routes/saledetails_item_join_routes');
 var purchasedetail_item=require('./routes/purchasedetails_item_join_routes');
@@ -70,6 +75,7 @@ app.use('/supplier',supplier);
 app.use('/saledetail',saledetail);
 app.use('/purchase',purchase);
 app.use('/purchasedetail',purchasedetail);
+app.use('/sendMail',forgetPassMail);
 app.use('/changepassword',changepassword);
 app.use('/saledetail_item',saledetail_item);
 app.use('/purchasedetail_item',purchasedetail_item);

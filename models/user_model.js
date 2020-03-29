@@ -3,17 +3,17 @@ var db=require('../dbconnec'); //reference of dbconnection.js
 var User={
  
 getLogin:function(item,callback){
-                console.log(item);
+                // console.log(item);
         return db.query("Select * from User where userEmailId=? And userPassword=?",[item.userEmailId,item.userPassword],callback);
                    
 },
         
 GetAllUser:function(callback){
  
-//return db.query("Select * from User",callback);
+// return db.query("Select * from User",callback);
 return db.query("select * from User join branch on (User.fkBranchId=branch.branchId) join role on(User.fkRoleId=role.roleId)",callback);    
-} ,
 
+} ,
 GetAllUserById:function(user_emailId,callback){
  
         return db.query("select * from User join branch on (User.fkBranchId=branch.branchId) join role on(User.fkRoleId=role.roleId) and userEmailId=?",[user_emailId],callback);

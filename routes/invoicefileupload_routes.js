@@ -1,33 +1,25 @@
-var express = require("express");
+ var express = require("express");
 var router = express.Router();
 var multer=require('multer');
-
-var storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-      cb(null, 'public/uploads/')
-    },
-    filename: function (req, file, cb) {
-      cb(null, file.fieldname + '-' + Date.now() +  ".pdf");  
-    //  console.log(file.fieldname);
-    }
-  })
-   
-  var upload = multer({ storage: storage }).single('filename'); 
-
+var fs = require('fs');
+var mv=require('mv');
+var formidable = require('formidable');
 
  
 router.post('/', function (req, res) {
-  console.log(req.files);
-  upload(req, res, function (err,rows) {
-   // console.log(rows);
-    if (err ) {
-   
-    }
-    res.json({
-        success:true,
-        message:'image uploaded..'
-    }); 
-  })
+  var form=new formidable.IncomingForm();
+  form.parse(req,function(err, fields, files){
+                       let myfile=files.filename.name;
+                       let oldpath=files.filename.path;
+                       let newpath='./public/uploads/'+myfile;
+                       mv(oldpath,newpath,function(err){
+                           if(err) next(createError(500));
+                           else {
+                             res.send("Done");
+                             res.end();
+                           } 
+                       });
+    });
+ 
 });
 module.exports=router;
-

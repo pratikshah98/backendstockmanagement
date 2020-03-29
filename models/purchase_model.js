@@ -3,9 +3,7 @@ const uuid=require("uuid-random");
 
 var purchase={
     getAllPurchase:function(callback){
-       // return db.query('select * from purchase',callback);
-       //return db.query('select p.*,s.*,b.* from purchase p,supplier s,branch b where p.fkSupplierEmailId=s.supplierEmailId And p.fkbranchId=b.branchId ',callback);
-    return db.query("select * from purchase join branch on (purchase.fkBranchId=branch.branchId) join supplier on (purchase.fkSupplierEmailId=supplier.supplierEmailId)",callback);
+  return db.query("select * from purchase join branch on (purchase.fkBranchId=branch.branchId) join supplier on(purchase.fkSupplierEmailId=supplier.supplierEmailId)",callback);    
     },
     addPurchase:function(item,callback){
         // return db.query("insert into purchase(purchaseId,purchaseDate,fkSupplierEmailId,fkBranchId) values(?,?,?,?)",[item.purchaseId,item.purchaseDate,item.fkSupplierEmailId,item.fkBranchId],callback);
