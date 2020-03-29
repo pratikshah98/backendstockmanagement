@@ -26,12 +26,7 @@ deleteStock:function(fk_itemId,fk_branchId,callback){
 } ,
 getstockbybranchid:function(id,callback){
     return db.query("select * from Stock as s join item as i on (s.fkItemId=i.itemId) where fkBranchId=?",[id],callback);
-<<<<<<< HEAD
 },
-=======
- }
-
->>>>>>> 45f5bbc743f438513204da3010f2ca712d862a7e
 
 }
  module.exports=stock;
