@@ -16,11 +16,7 @@ var Stock=require('./routes/stock_routes');
 var item=require('./routes/item_routes');
 var saletype=require('./routes/saletype_routes');
 var supplier=require('./routes/supplier_routes');
-<<<<<<< HEAD
-var saledetail=require('./routes/saledetail_routes');
-=======
 var saledetail=require('./routes/saledetail_routes' );
->>>>>>> 4171644c98cfdee4ae96eadefcfdc12464eff5d3
 var purchase=require('./routes/purchase_routes');
 var purchasedetail=require('./routes/purchasedetail_routes');
 var forgetPassMail=require('./routes/forgetPassMail_routes')
