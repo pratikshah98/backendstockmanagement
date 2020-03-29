@@ -22,4 +22,10 @@ router.post('/', function (req, res) {
     });
  
 });
+router.get('/:id', function (req, res, next) {
+  var filePath = './public/uploads/'+req.params.id; // Or format the path using the `id` rest param
+  var fileName = req.params.id; // The default name the browser will use
+
+  res.download(filePath, fileName);    
+});
 module.exports=router;
