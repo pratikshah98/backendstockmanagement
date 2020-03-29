@@ -4,7 +4,7 @@ var mysql=require('mysql');
 host:'localhost',
  user:'root',
  password:'',
- database:'stockdb'
+ database:'stockmanagement'
  
 });
  module.exports=connection;
