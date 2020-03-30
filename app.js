@@ -41,6 +41,7 @@ var purchasereportbymonth=require('./routes/purchase_report_month_routes');
 var stockreport=require('./routes/report_stock_routes');
 var salereport_passingmonth=require('./routes/salereport_passingmonth_routes');
 var purchasereport_passingmonth=require('./routes/purchasereport_passingmonthyear_routes');
+var reorder=require('./routes/reorderstock_routes');
 
 
 
@@ -93,6 +94,7 @@ app.use('/purchasereportbymonth',purchasereportbymonth);
 app.use('/stockreport',stockreport);
 app.use('/salereport_passingmonth',salereport_passingmonth);
 app.use('/purchasereport_passingmonth',purchasereport_passingmonth);
+app.use('/reorder',reorder);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
