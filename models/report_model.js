@@ -76,27 +76,33 @@ getSaleDetailsByPassingMonth:function(itemId,callback)
       {
           return db.query("select i.name,sum(sd.saleQuantity) as quantity,"+
           "DATE_FORMAT(sa.salesDate,'%m - %Y') as date from salesdetails sd ,sale sa,item i "+
-          "where sd.fkSaleId = sa.saleId and i.itemId = ? group by date",[itemId],callback);
+          "where sd.fkSaleId = sa.saleId and sd.fkItemId=i.itemId and i.itemId = ?  and "+
+          " MONTH(sa.salesDate) = MONTH(CURRENT_DATE())"+
+          "AND YEAR(sa.salesDate) = YEAR(CURRENT_DATE()) group by sd.fkitemId",[itemId],callback);
     },
 getSaleDetailsByPassingMonthAndBranchId:function(itemId,branchId,callback)
       {
           return db.query("select i.name,sum(sd.saleQuantity) as quantity,"+
           "DATE_FORMAT(sa.salesDate,'%m - %Y') as date from salesdetails sd ,sale sa,item i,branch b"+
-          " where b.branchId = ? and sd.fkSaleId = sa.saleId and i.itemId = ? "+
-          "group by date",[branchId,itemId],callback);
+          " where b.branchId = ? and sd.fkSaleId = sa.saleId and sd.fkItemId=i.itemId and i.itemId = ? "+
+          " and MONTH(sa.salesDate)=MONTH(CURRENT_DATE())"+
+          " AND YEAR(sa.salesDate)= YEAR(CURRENT_DATE()) group by sd.fkItemId",[branchId,itemId],callback);
     },
     getPurchaseDetailsMonthWise:function(itemId,callback)
     {
      return db.query("select i.name,sum(pd.purchaseQuantity) as quantity,"+
      "DATE_FORMAT(pu.purchaseDate,'%m - %y') as date from purchasedetails pd ,purchase pu,item i"+
-     " where pd.fkPurchaseId = pu.purchaseId and i.itemId = ? group by date",[itemId],callback);       
+     " where pd.fkPurchaseId = pu.purchaseId and i.itemId=pd.fkItemId and i.itemId = ?"+
+     " and MONTH(pu.purchaseDate)=MONTH(CURRENT_DATE())"+
+     " AND YEAR(pu.purchaseDate)= YEAR(CURRENT_DATE()) group by pd.fkItemId",[itemId],callback);       
   },
   getPurchaseDetailsMonthWiseBranch:function(itemId,branchId,callback)
   {
     return db.query("select i.name,sum(pd.purchaseQuantity) as quantity,"+
     "DATE_FORMAT(pu.purchaseDate,'%m - %y') as date from purchasedetails pd ,purchase pu,item i,branch b"+
-    " where pd.fkPurchaseId = pu.purchaseId and b.branchId = ? and i.itemId = ? "+
-    "group by date",[branchId,itemId],callback);       
+    " where pd.fkPurchaseId = pu.purchaseId and i.itemId=pd.fkItemId and b.branchId = ? and i.itemId = ? "+
+    " and MONTH(pu.purchaseDate)=MONTH(CURRENT_DATE()) "+
+    "  AND YEAR(pu.purchaseDate)= YEAR(CURRENT_DATE()) group by date",[branchId,itemId],callback);       
 },
 stockItemBranchId:function(fk_branchId,callback){
     
