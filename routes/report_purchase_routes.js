@@ -4,7 +4,7 @@ var router=express.Router();
 
 
 router.get('/:sd/:ed/:bid',function(req, res, next) {
-  purchasereport.GetPurchaseReportBetweenDatePassedBranch_id(req.params.sd,req.params.ed,req.params.bid,function(err, rows) {
+  purchasereport.getPurchaseReportBetweenDatePassedBranchId(req.params.sd,req.params.ed,req.params.bid,function(err, rows) {
     if (err) {
       
       res.json(err);
@@ -14,7 +14,7 @@ router.get('/:sd/:ed/:bid',function(req, res, next) {
   });
 });
 router.get('/:sd/:ed',function(req, res, next) {
-  purchasereport.GetPurchaseReportBetweenDatePassed(req.params.sd,req.params.ed,function(err, rows) {
+  purchasereport.getPurchaseReportBetweenDatePassed(req.params.sd,req.params.ed,function(err, rows) {
     if (err) {
       
       res.json(err);

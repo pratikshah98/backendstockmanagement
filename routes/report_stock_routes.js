@@ -3,7 +3,7 @@ var express=require('express');
 var router=express.Router();
 
   router.get('/:fk_branchId', function(req, res, next) {
-    stockreport.stockitem_branchid(req.params.fk_branchId, function(err, rows) {
+    stockreport.stockItemBranchId(req.params.fk_branchId, function(err, rows) {
       if (err) {
         res.json(err);
       } else {

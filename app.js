@@ -35,12 +35,13 @@ var invoiceupload=require('./routes/invoicefileupload_routes');
 var report=require('./routes/report_routes');
 var purchasereport=require('./routes/report_purchase_routes');
 var salereportitemdate=require('./routes/reportsale_itemdate_routes');
-var purchasereport_dateitem=require('./routes/report_purchase_itemdate_routes');
+var purchasereportdateitem=require('./routes/report_purchase_itemdate_routes');
 var salereportbymonth=require('./routes/salereport_month_routes');
 var purchasereportbymonth=require('./routes/purchase_report_month_routes');
 var stockreport=require('./routes/report_stock_routes');
-var salereport_passingmonth=require('./routes/salereport_passingmonth_routes');
-var purchasereport_passingmonth=require('./routes/purchasereport_passingmonthyear_routes');
+var salereportpassingmonthyear=require('./routes/salereport_passingmonth_routes');
+var purchasereportpassingmonthyear=require('./routes/purchasereport_passingmonthyear_routes');
+var reorder=require('./routes/reorderstock_routes');
 
 
 
@@ -87,12 +88,13 @@ app.use('/invoiceupload',invoiceupload);
 app.use('/report',report);
 app.use('/purchasereport',purchasereport);
 app.use('/salereportitemdate',salereportitemdate);
-app.use('/purchasereport_dateitem',purchasereport_dateitem);
+app.use('/purchasereportdateitem',purchasereportdateitem);
 app.use('/salereportbymonth',salereportbymonth);
 app.use('/purchasereportbymonth',purchasereportbymonth);
 app.use('/stockreport',stockreport);
-app.use('/salereport_passingmonth',salereport_passingmonth);
-app.use('/purchasereport_passingmonth',purchasereport_passingmonth);
+app.use('/salereportpassingmonthyear',salereportpassingmonthyear);
+app.use('/purchasereportpassingmonthyear',purchasereportpassingmonthyear);
+app.use('/reorder',reorder);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));

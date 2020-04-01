@@ -4,7 +4,7 @@ var router=express.Router();
 
 
   router.get('/:m/:d', function(req, res, next) {
-   salereport_passingmonth.salereport_passingmonthyear(req.params.m,req.params.d, function(err, rows) {
+   salereport_passingmonth.saleReportPassingMonthYear(req.params.m,req.params.d, function(err, rows) {
       if (err) {
         res.json(err);
       } else {
