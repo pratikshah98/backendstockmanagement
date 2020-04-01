@@ -1,6 +1,7 @@
 var reorder= require("../models/reorderstock_model");
 var express = require("express");
 var router = express.Router();
+var nodemailer = require('nodemailer');
 
 router.get('/:bid',function(req,res,next){
  
@@ -11,46 +12,81 @@ router.get('/:bid',function(req,res,next){
       res.json(err);
       }
       else
-      {
-      res.json(rows);
+      { 
+      //res.json(rows);
       //console.log(rows);
-      router.post('/',function(req,res,next){
-
- 
-
-        console.log(req.body);
+      for(i=0;i<rows.length;i++)
+      {
+         console.log(rows[i]);
+        var transporter = nodemailer.createTransport({
     
-        reorder.sendMail(req.body,function(err,message){
-    
-     
-    
-            if(err)
-    
-            {
-    
-                console.log(err);
-    
-                res.json(err);
-    
-               
-    
+            service: 'gmail',
+          
+            auth: {
+          
+              user: 'dhairyajariwala26@gmail.com',
+          
+              pass: 'abcdEfg@12'
+          
+            },
+            tls:{
+                rejectUnauthorized:false
             }
-    
-            else
-    
-            {
-    
-                return res.json({success: true, msg: 'sent'});//or return count for 1 or 0
-    
+          
+          });
+          
+           
+          
+          var mailOptions = {
+          
+            from: 'dhairyajariwala26@gmail.com',
+          
+            to: rows[i].userEmailId,
+          
+            subject:'REMAINDER OF REORDER ITEM',
+          
+            //text:rows[i].itemId,
+            html:'<table style="border:1px solid black; padding:20px; margin:20px;"> '+
+            '<tr>'+
+            '<th>  ITEM NAME      <th>'+
+            '<th>  ITEM QUANTITY  <th>'+
+            '</tr>'+
+
+            '<tr>'+
+            '<th>'+ rows[i].name          +'</th>'+'&nbsp;&nbsp;&nbsp;'+
+            '<th>'+ rows[i].stockQuantity +'</th>'+
+            
+            '</tr>'+
+            '</table>'
+            
+          };
+          
+           
+          
+          transporter.sendMail(mailOptions, function(error, info){
+          
+            if (error) {
+          
+              console.log(error);
+          
+            } else {
+          
+              console.log('Email sent: ' + info.response);
+          
             }
-    
-        });
-    
-    });
+          
+          });
+              
+           
+        
       }
-    
-    });
+      
+          
+      }
 });
 
-
+});
+  
 module.exports = router;
+
+
