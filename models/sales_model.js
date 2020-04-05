@@ -43,9 +43,11 @@ updateSale:function(id,item,callback){
     },
 
     deleteSale:function(id,callback){
-       
-            return db.query("delete from Sale where saleId in (?)",[id],callback);
-      } ,
+            let r=db.query("delete from salesdetails where fkSaleId in (?)",[id]);
+            if(r){
+                return db.query("delete from Sale where saleId in (?)",[id],callback);
+            }
+      },
  
 // getId:function(item,callback)
 // {

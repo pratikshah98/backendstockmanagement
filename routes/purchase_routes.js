@@ -1,5 +1,6 @@
 var purchase = require("../models/purchase_model");
 var express = require("express");
+var db=require('../dbconnec'); //reference of dbconnection.js
 var router = express.Router();
 
 router.get("/:id?", function(req, res, next) {
@@ -28,6 +29,24 @@ router.delete("/:purchaseId", function(req, res, next) {
     } else {
       res.json(rows);
     }
+  });
+});
+router.post('/deleteMultiple', function(req, res, next) {
+  console.log(req.body);
+  db.query("delete from purchasedetails where fkPurchaseId in (?)",[req.body],function(err,result,fields){
+      // console.log(results);
+      if(result){
+          db.query("delete from purchase where purchaseId in (?)",[req.body],function(err1,rows){
+            if (err1) {
+              res.json(err1);
+            } else {
+              res.json(rows);
+            }
+          });  
+      }
+      else if(err){
+        res.json(err);
+      }
   });
 });
 
