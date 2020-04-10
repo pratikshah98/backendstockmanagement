@@ -120,7 +120,27 @@ purchaseReportPassingMonthYear: function (m,y,callback) {
     return db.query("SELECT p.purchaseDate, i.name,pd.purchaseQuantity FROM purchase p JOIN"+
     " purchasedetails pd ON p.purchaseId= pd.fkPurchaseId JOIN item i ON i.itemId=pd.fkItemId "+
     "and MONTH(p.purchaseDate) = ? AND YEAR(p.purchaseDate) = ?", [m,y], callback);
+},
+
+getChartData: function(callback){
+    return db.query(`
+        SELECT saleData.month,saleData.year, sum(saleData.totalQuantity) as totalSale
+        FROM
+            (SELECT DATE_FORMAT(s.salesDate,'%m') as month,DATE_FORMAT(s.salesDate,'%y') as year,
+                (SELECT SUM(sd.saleQuantity)
+                FROM salesdetails as sd
+                WHERE sd.fkSaleId=s.saleId
+                ) as totalQuantity
+            FROM sale as s
+            WHERE DATE_FORMAT(s.salesDate,'%Y%m') <= DATE_FORMAT(CURRENT_DATE,'%Y%m')
+            AND DATE_FORMAT(s.salesDate,'%Y%m') >= DATE_FORMAT(DATE_ADD(CURRENT_DATE, INTERVAL -1 YEAR),'%Y%m')
+            ORDER BY DATE_FORMAT(s.salesDate,'%m%y') ASC
+            ) as saleData
+        GROUP BY (saleData.month),(saleData.year)
+        ORDER BY saleData.year, saleData.month
+    `, callback);
 }
+
 };
 
 
