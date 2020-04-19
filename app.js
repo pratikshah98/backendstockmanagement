@@ -43,6 +43,7 @@ var salereportpassingmonthyear=require('./routes/salereport_passingmonth_routes'
 var purchasereportpassingmonthyear=require('./routes/purchasereport_passingmonthyear_routes');
 var reorder=require('./routes/reorderstock_routes');
 var chartreport=require('./routes/chart_report_routes');
+var invoicegenerated=require('./routes/Invoicegeneratedzero_routes');
 
 
 
@@ -98,6 +99,7 @@ app.use('/salereportpassingmonthyear',salereportpassingmonthyear);
 app.use('/purchasereportpassingmonthyear',purchasereportpassingmonthyear);
 app.use('/reorder',reorder);
 app.use('/chartreport',chartreport);
+app.use('/invoicegenerated',invoicegenerated);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
