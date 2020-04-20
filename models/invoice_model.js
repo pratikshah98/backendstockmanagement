@@ -13,11 +13,11 @@ getInvoiceById:function(Id,callback){
 addInvoice:function(item,callback){
     return db.query("insert into invoice(invoiceName,invoiceDate,fkCustomerEmailId) values(?,?,?)",[item.invoiceName,item.invoiceDate,item.fkCustomerEmailId],callback);
 },
-getInvoiceByIdInvoiceGenerated:function(Id,callback)
-{
-    return db.query("select * from sale where fkCustomerEmailId=? and isInvoiceGenerated=0 and createdRecordDate<= NOW() ",Id,callback);
-},
-updateInvoiceGeneratedToOne:function(id,body,callback)
+// getInvoiceByIdInvoiceGenerated:function(Id,callback)
+// {
+//     return db.query("select * from sale where fkCustomerEmailId=? and isInvoiceGenerated=0 and createdRecordDate<= NOW() ",Id,callback);
+// },
+updateInvoiceGeneratedToTwo:function(id,body,callback)
 {
     return db.query("update sale set isInvoiceGenerated=2 where fkCustomerEmailId=? and isInvoiceGenerated=1",[id],callback);
 }
