@@ -17,9 +17,9 @@ getInvoiceByIdInvoiceGenerated:function(Id,callback)
 {
     return db.query("select * from sale where fkCustomerEmailId=? and isInvoiceGenerated=0 and createdRecordDate<= NOW() ",Id,callback);
 },
-updateInvoiceGeneratedToOne:function(id)
+updateInvoiceGeneratedToOne:function(id,body,callback)
 {
-    return db.query("update sale set isInvoiceGenerated=1 where fkCustomerEmailId=? and isInvoiceGenerated=0 and createdRecordDate<= NOW()",id);
+    return db.query("update sale set isInvoiceGenerated=2 where fkCustomerEmailId=? and isInvoiceGenerated=1",[id],callback);
 }
 
  
