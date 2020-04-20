@@ -69,11 +69,11 @@ router.post('/',function(req,res,next){
 
   router.post('/managestock/:fk_itemId/:fk_branchId',function(req,res,next){
     db.query("select stockQuantity from Stock where fkItemId=? and fkBranchId= ?",[req.params.fk_itemId,req.params.fk_branchId],function(err,result,fields){
-      console.log(req.body.stockQuantity+" - "+result.stockQuantity);
+      // console.log(req.body.stockQuantity+" - "+result.stockQuantity);
         let newStock = result[0].stockQuantity - req.body.stockQuantity;
-        console.log("New= "+newStock);
+        // console.log("New= "+newStock);
         if(req.body.lastUpdatedDate==undefined){
-          console.log(req.body); 
+          // console.log(req.body); 
         db.query("update Stock set stockQuantity=? where fkItemId=? and fkBranchId=?",[newStock,req.params.fk_itemId,req.params.fk_branchId],function(err1,result1,fields1){
           // console.log(result1);
           if(err1){
@@ -87,7 +87,7 @@ router.post('/',function(req,res,next){
       }
       else{
         db.query("update Stock set stockQuantity=? , lastUpdatedDate=? where fkItemId=? and fkBranchId=?",[newStock,req.body.lastUpdatedDate,req.params.fk_itemId,req.params.fk_branchId],function(err1,result1,fields1){
-          console.log("Inside else");
+          // console.log("Inside else");
           if(err1){
             res.json(err);
           }

@@ -24,6 +24,7 @@ let u=uuid();
 let promise= new Promise((resolve, reject) => {
     let d=db.query("insert into Sale(saleId,salesDate,isInvoiceGenerated,fkSaleTypeId,fkCustomerEmailId,fkBranchId) values(?,?,?,?,?,?)",[u,item.salesDate,item.isInvoiceGenerated,item.fkSaleTypeId,item.fkCustomerEmailId,item.fkBranchId]);
     if(d) resolve(d);
+    
     else reject(d);
 });
 promise.then(function(res){
@@ -42,9 +43,11 @@ updateSale:function(id,item,callback){
     },
 
     deleteSale:function(id,callback){
-       
-            return db.query("delete from Sale where saleId in (?)",[id],callback);
-      } ,
+            let r=db.query("delete from salesdetails where fkSaleId in (?)",[id]);
+            if(r){
+                return db.query("delete from Sale where saleId in (?)",[id],callback);
+            }
+      },
  
 // getId:function(item,callback)
 // {
