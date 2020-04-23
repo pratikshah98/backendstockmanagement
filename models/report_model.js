@@ -139,7 +139,22 @@ getChartData: function(callback){
         GROUP BY (saleData.month),(saleData.year)
         ORDER BY saleData.year, saleData.month
     `, callback);
-}
+},
+getAllCreditorAmount:function(callback)
+{
+    return db.query("select customerName ,customerEmailId, customerPhoneNo,sum(amountDue) as TotalPendingAmount from amountdue join customer on fkCustomerEmailId=customerEmailId group by(fkCustomerEmailId) having TotalpendingAmount > 0",callback);
+},
+getAllCreditorwithlastpaydate:function(callback)
+{
+    return db.query("select customerName ,customerEmailId, customerPhoneNo,amountDue,transactionDate from amountdue join customer on fkCustomerEmailId=customerEmailId where amountDue > 0",callback);
+},
+getCreditorByName:function(name,callback){ 
+    return db.query("select customerName ,customerEmailId, customerPhoneNo,amountDue,transactionDate from amountdue join customer on fkCustomerEmailId=customerEmailId where amountDue>0 and Customername=?",[name],callback);
+    }
+
+
+
+
 
 };
 

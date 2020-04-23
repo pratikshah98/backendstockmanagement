@@ -44,6 +44,8 @@ var purchasereportpassingmonthyear=require('./routes/purchasereport_passingmonth
 var reorder=require('./routes/reorderstock_routes');
 var chartreport=require('./routes/chart_report_routes');
 var invoicegenerated=require('./routes/Invoicegeneratedzero_routes');
+var creditortotalpendingamount=require('./routes/getallcreditor_totalpending_routes');
+var creditorwithlastpaydate=require('./routes/creditor_pendingamt_bylastpaydate_routes');
 
 
 
@@ -100,6 +102,8 @@ app.use('/purchasereportpassingmonthyear',purchasereportpassingmonthyear);
 app.use('/reorder',reorder);
 app.use('/chartreport',chartreport);
 app.use('/invoicegenerated',invoicegenerated);
+app.use('/creditortotalpendingamount',creditortotalpendingamount);
+app.use('/creditorwithlastpaydate',creditorwithlastpaydate);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
