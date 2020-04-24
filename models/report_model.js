@@ -12,8 +12,8 @@ getSaleReportBetweenDatePassedBranchId:function(sd,ed,bid,callback){
      
 },
 getSaleReportBetweenDatePassed:function(sd,ed,callback){
-    return db.query("select f.name, SUM(f.saleQuantity) as Quantity,f.branchName from "
-    +"(select i.name,sd.saleQuantity,s.fkBranchId,b.branchName from salesdetails as sd "+
+    return db.query("select f.itemId,f.name, SUM(f.saleQuantity) as Quantity,f.fkBranchId,f.branchName from "
+    +"(select i.itemId,i.name,sd.saleQuantity,s.fkBranchId,b.branchName from salesdetails as sd "+
     " join sale as s on s.saleId=sd.fkSaleId join item as i on i.itemId=sd.fkItemId join branch as b on b.branchId=s.fkbranchId"+
     " where s.salesDate BETWEEN ? and ?) as f group by(f.name)",[sd,ed],callback);
      
@@ -28,10 +28,8 @@ getPurchaseReportBetweenDatePassedBranchId:function(sd,ed,bid,callback){
      
 },
 getPurchaseReportBetweenDatePassed:function(sd,ed,callback){
-    
-
-    return db.query("select f.name, SUM(f.purchaseQuantity) as Quantity,f.branchName from"+
-    " (select i.name,pd.purchaseQuantity,p.fkBranchId,b.branchName from purchasedetails as pd "+
+    return db.query("select f.itemId,f.name, SUM(f.purchaseQuantity) as Quantity,f.fkBranchId,f.branchName from"+
+    " (select i.itemId,i.name,pd.purchaseQuantity,p.fkBranchId,b.branchName from purchasedetails as pd "+
     "join purchase as p on p.purchaseId=pd.fkpurchaseId join item as i on i.itemId=pd.fkItemId join branch as b on b.branchId=p.fkBranchId"+
     " where p.purchaseDate BETWEEN ? and ?) as f group by(f.name)",[sd,ed],callback);
      
