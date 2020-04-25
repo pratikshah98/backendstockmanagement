@@ -8,7 +8,9 @@ var branch={
             let u=uuid();
            
         let promise= new Promise((resolve, reject) => {
+            console.log(item);
             let d=db.query('insert into branch (branchId,branchName,branchAddress,branchPhoneNo,gstNumber) values(?,?,?,?,?)',[u,item.branchName,item.branchAddress,item.branchPhoneNo,item.gstNumber]);
+            console.log(d); 
             if(d) resolve(d);
             else reject(d);
         });

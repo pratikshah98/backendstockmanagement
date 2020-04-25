@@ -32,10 +32,6 @@ router.delete("/:purchaseId", function(req, res, next) {
   });
 });
 router.post('/deleteMultiple', function(req, res, next) {
-  console.log(req.body);
-  db.query("delete from purchasedetails where fkPurchaseId in (?)",[req.body],function(err,result,fields){
-      // console.log(results);
-      if(result){
           db.query("delete from purchase where purchaseId in (?)",[req.body],function(err1,rows){
             if (err1) {
               res.json(err1);
@@ -43,11 +39,7 @@ router.post('/deleteMultiple', function(req, res, next) {
               res.json(rows);
             }
           });  
-      }
-      else if(err){
-        res.json(err);
-      }
-  });
+  
 });
 
 router.put("/:purchaseId", function(req, res, next) {
