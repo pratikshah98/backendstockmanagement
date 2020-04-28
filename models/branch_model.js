@@ -33,6 +33,10 @@ getBranchByid:function(id,callback){
     return db.query("select * from branch where branchId=?",[id],callback);
      
 },
+getBranchByName:function(name,callback){ 
+    // console.log("Called");
+    return db.query("select branchName from branch where branchName=?",[name],callback);     
+},
 updateBranch:function(id,item,callback){
 
     return db.query("update branch set branchName=?,branchAddress=?,branchPhoneNo=?,gstNumber=? where branchId=?",[item.branchName,item.branchAddress,item.branchPhoneNo,item.gstNumber,item.branchId],callback);

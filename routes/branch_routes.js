@@ -59,4 +59,14 @@ else{
 });
 }
 });
+router.get('/name/:name?',function(req,res,next){
+    branch.getBranchByName(req.params.name,function(err,rows){
+        if(err){
+            res.json(err);
+        }
+        else{
+            res.json(rows);
+        }    
+    });
+});
 module.exports=router;

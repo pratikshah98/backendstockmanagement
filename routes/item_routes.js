@@ -62,6 +62,16 @@ else{
 });
 }
 });
+router.get('/name/:name?',function(req,res,next){
+    item.getItemByName(req.params.name,function(err,rows){
+        if(err){
+            res.json(err);
+        }
+        else{
+            res.json(rows);
+        }    
+    });
+});
 // router.get('/itemSize/:size',function(req,res,next){
 //     db.query("select itemId from item where size=?",[req.params.size],function(err,result,fields){
         

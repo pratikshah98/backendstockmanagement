@@ -34,6 +34,10 @@ getAllItem:function(callback)
 getItemByid:function(id,callback){ 
     return db.query("select * from item join supplier on (item.fkSupplierEmailId=supplier.supplierEmailId) and itemId=?",[id],callback);     
 },
+getItemByName:function(name,callback){ 
+    // console.log("Called");
+    return db.query("select name from item where name=?",[name],callback);     
+},
 updateItem:function(id,itemt,callback){
     return db.query("update item set name=?,gsm=?,size=?,minimumRate=?,reorderLevel=?,fkSupplierEmailId=? where itemId=?",[itemt.name,itemt.gsm,itemt.size,itemt.minimumRate,itemt.reorderLevel,itemt.fkSupplierEmailId,itemt.itemId],callback);
 },

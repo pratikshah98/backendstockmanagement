@@ -20,8 +20,8 @@ router.get('/:userEmailId',function(req,res,next){
       service: "gmail",
       secure:true,
       auth: {
-          user: 'keswanisunil98@gmail.com',
-          pass: 'motivationMOTIVATION'
+          user: 'dhairyajariwala26@gmail.com',
+          pass: 'abcdEfg@12'
       }
     });
     let otp = '';
@@ -44,7 +44,7 @@ router.get('/:userEmailId',function(req,res,next){
       console.log("Inside 2");
       var mailOptions = {
           from: 'keswanisunil98@gmail.com',
-          to: 'keswani706@gmail.com',
+          to: req.params.userEmailId,
           subject: 'OTP For Reset Password',
           text:"Thanks for registration with our website. This is your OTP "+otp+" This OTP is Only valid for 6 Hours"
         };
