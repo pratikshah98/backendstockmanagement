@@ -54,6 +54,7 @@ router.post("/", function(req, res, next) {
       res.json(err);
     } else {
       res.json(rows);
+      console.log("sale detail"+rows);
     }
   });
 });

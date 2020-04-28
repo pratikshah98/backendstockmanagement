@@ -37,7 +37,7 @@ router.post('/',function(req,res,next){
       }
       else
       {
-        //console.log(rows);
+        console.log(rows);
         res.json(rows);
       //  console.log("id is"+" "+rows.insertId);
         // sale.getId(req.body,function(err1,rows1){
@@ -87,16 +87,16 @@ router.post('/',function(req,res,next){
       }
     });
   });
-  router.post('/deleteMultiple', function(req, res, next) {
-            db.query("delete from Sale where saleId in (?)",[req.body],function(err1,rows){
-              if (err1) {
-                res.json(err1);
-              } else {
-                res.json(rows);
-              }
-            });  
+  // router.post('/deleteMultiple', function(req, res, next) {
+  //           db.query("delete from Sale where saleId in (?)",[req.body],function(err1,rows){
+  //             if (err1) {
+  //               res.json(err1);
+  //             } else {
+  //               res.json(rows);
+  //             }
+  //           });  
     
-  });
+  // });
 
 
 module.exports=router;
