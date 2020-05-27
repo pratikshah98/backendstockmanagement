@@ -12,7 +12,7 @@ var saledetail={
     },
    
     getSalesdetailbyid:function(sid,callback){
-        return db.query("select * from salesdetails as sd join sale as s on s.saleId=sd.fkSaleId join item as i on sd.fkItemId=i.itemId and fkSaleId=?",[sid],callback);
+        return db.query("select * from salesdetails as sd join sale as s on s.saleId=sd.fkSaleId join item as i on sd.fkItemId=i.itemId and fkSaleId in (?)",[sid],callback);
     },
     updateSalesdetail:function(sid,item,callback){
 
