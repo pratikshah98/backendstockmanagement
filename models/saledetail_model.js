@@ -5,7 +5,7 @@ var saledetail={
        return db.query('select * from salesdetails as sd join sale as s on s.saleId=sd.fkSaleId join item as i on sd.fkItemId=i.itemId',callback);
     },
     addSalesdetail:function(item,callback){
-        return db.query("insert into salesdetails values(?,?,?,?)",[item.fkSaleId,item.fkItemId,item.creditRate,item.saleQuantity],callback);
+        return db.query("insert into salesdetails values(?,?,?)",[item.fkSaleId,item.fkItemId,item.saleQuantity],callback);
     },
     deleteSalesdetail:function(sid,callback){
         return db.query("delete from salesdetails where fkSaleId=?",[sid],callback);
@@ -16,7 +16,7 @@ var saledetail={
     },
     updateSalesdetail:function(sid,item,callback){
 
-        return db.query("update salesdetails set fkItemId=?,creditRate=?,saleQuantity=? where fkSaleId=?",[item.fkItemId,item.creditRate,item.saleQuantity,sid],callback);
+        return db.query("update salesdetails set fkItemId=?,saleQuantity=? where fkSaleId=?",[item.fkItemId,item.saleQuantity,sid],callback);
     },
     saledetailAndItemjoinbyid:function(id,callback)
     {
