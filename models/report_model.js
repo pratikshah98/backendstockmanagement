@@ -138,6 +138,26 @@ getChartData: function(callback){
         ORDER BY saleData.year, saleData.month
     `, callback);
 },
+getChartDataByBranch: function(bid,callback){
+    return db.query(`
+        SELECT saleData.branchid,saleData.branchname,saleData.month,saleData.year, sum(saleData.totalQuantity) as totalSale
+        FROM
+            (SELECT DATE_FORMAT(s.salesDate,'%m') as month,DATE_FORMAT(s.salesDate,'%y') as year,
+                (SELECT SUM(sd.saleQuantity)
+                FROM salesdetails as sd
+                WHERE sd.fkSaleId=s.saleId
+                ) as totalQuantity,b.branchId as branchid,b.branchName as branchname
+            FROM sale as s,branch as b
+            WHERE  DATE_FORMAT(s.salesDate,'%Y%m') <= DATE_FORMAT(CURRENT_DATE,'%Y%m')
+            AND DATE_FORMAT(s.salesDate,'%Y%m') >= DATE_FORMAT(DATE_ADD(CURRENT_DATE, INTERVAL -1 YEAR),'%Y%m') and
+            s.fkBranchId=b.branchId and b.branchId=?
+            ORDER BY DATE_FORMAT(s.salesDate,'%m%y') ASC
+            ) as saleData
+        GROUP BY (saleData.month),(saleData.year)
+        ORDER BY saleData.year, saleData.month
+       
+    `, [bid],callback);
+},
 getAllCreditorAmount:function(callback)
 {
     return db.query("select customerName ,customerEmailId, customerPhoneNo,sum(amountDue) as TotalPendingAmount from amountdue join customer on fkCustomerEmailId=customerEmailId group by(fkCustomerEmailId) having TotalpendingAmount > 0",callback);
