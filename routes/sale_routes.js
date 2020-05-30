@@ -104,48 +104,75 @@ router.post('/',function(req,res,next){
         res.json(err);
       } else {
         // console.log("All Sales"+result[0].data);
-        let totalSale=req.body.totalSale;
-        let creditSale=[];
-        let cashSale=[];
-        for(let i=0;i<result.length;i++){
-          let date=new Date();
-          let currDate=new Date(result[i].salesDate);
-          date.setHours(0,0,0,0)
-          currDate.setHours(0,0,0,0)
-          // console.log("Inside sale id="+result[i].saleId);
-          // console.log("Date ="+date);
-          // console.log("Date ="+currDate);
-          if(!(currDate > date) && !(currDate < date)){
-            // console.log("Inside Date.sale Date="+result[i].salesDate);
-            if(result[i].fkSaleTypeId=='0040a784-6b5d-11ea-a8c8-ace2d3e54b8b'){
-              // console.log("Inside CreditSale.");
-              creditSale.push(result[i].saleId);
-            }
-            else{
-              // console.log("Inside CashSale.");
-                cashSale.push(result[i].saleId);
-            }
-          }
+        let stockUsage=req.body.stockUsage;
+        let itemIds=[];
+        for(let i=0;i<stockUsage.length;i++){
+          itemIds.push(stockUsage[i].fkItemId);
         }
-        let creditCount=0;
-        let cashCount=0;
-        db.query("select * from salesdetails where fkSaleId in (?)",[creditSale],function(err1,result1,fields1){
-            
-            for(let i=0;i<result1.length;i++){
-              // console.log("Inside CreditCount for sale id= "+result1[i].fkSaleId+" with qty= "+result1[i].saleQuantity);
-              creditCount+=result1[i].saleQuantity;
-            }
-            db.query("select * from salesdetails where fkSaleId in (?)",[cashSale],function(err2,result2,fields2){
-              // console.log("Calculate Cash Sale");
-              for(let j=0;j<result2.length;j++){
-                // console.log("Inside CashCount for sale id= "+result2[j].fkSaleId+" with qty= "+result2[j].saleQuantity);
-                cashCount+=result2[j].saleQuantity;
+        db.query("select * from item where itemId in (?)",[itemIds],function(err11,result11,fields11){
+          if (err11) {
+            res.json(err11);
+          } else {
+            let totalPrice=0;
+            if(result11.length>0){
+              for(let x=0;x<stockUsage.length;x++){
+                for(let y=0;y<stockUsage.length;y++){
+                  if(result11[x].itemId==stockUsage[y].fkItemId){
+                    totalPrice+=result11[x].minimumRate * stockUsage[y].stockQuantity;
+                    break;  
+                  }
+                }
               }
-              let final = (totalSale + cashCount) - creditCount ; 
-                db.query("update branch set cash= ? where branchId= ?",[final,req.body.branchId],function(err3,result3){
-                res.send("Done = "+final);
-              });
-            });  
+            }  
+              let creditSale=[];
+              let cashSale=[];
+              let creditCount=0;
+              let cashCount=0;
+              if(result.length>0){
+                for(let i=0;i<result.length;i++){
+                  let date=new Date();
+                  let currDate=new Date(result[i].salesDate);
+                  date.setHours(0,0,0,0)
+                  currDate.setHours(0,0,0,0)
+                  // console.log("Inside sale id="+result[i].saleId);
+                  // console.log("Date ="+date);
+                  // console.log("Date ="+currDate);
+                  if(!(currDate > date) && !(currDate < date)){
+                    // console.log("Inside Date.sale Date="+result[i].salesDate);
+                    if(result[i].fkSaleTypeId=='0040a784-6b5d-11ea-a8c8-ace2d3e54b8b'){
+                      // console.log("Inside CreditSale.");
+                      creditSale.push(result[i].saleId);
+                    }
+                    else{
+                      // console.log("Inside CashSale.");
+                        cashSale.push(result[i].saleId);
+                    }
+                  }
+                }
+                db.query("select * from salesdetails as s join item as i on (s.fkItemId=i.itemId) where s.fkSaleId in (?)",[creditSale],function(err1,result1,fields1){
+                  if(result1.length>0){
+                    for(let i=0;i<result1.length;i++){
+                      creditCount+=result1[i].saleQuantity*result1[i].minimumRate;
+                      console.log("Inside CreditCount for sale id= "+result1[i].fkSaleId+" with qty= "+creditCount);
+                    }
+                  }
+                });  
+                db.query("select * from salesdetails as s join item as i on (s.fkItemId=i.itemId) where s.fkSaleId in (?)",[cashSale],function(err2,result2,fields2){
+                  // console.log("Calculate Cash Sale");
+                  if(result2.length>0){
+                    for(let j=0;j<result2.length;j++){ 
+                      cashCount+=result2[j].saleQuantity*result2[j].minimumRate;
+                      console.log("Inside CashCount for sale id= "+result2[j].fkSaleId+" with qty= "+cashCount);
+                    }
+                  }
+                });  
+              }
+              
+                    let final= (totalPrice + cashCount) - creditCount ; 
+                      db.query("update branch set cash= ? where branchId= ?",[final,req.body.branchId],function(err3,result3){
+                      res.send("Done = "+final);
+                    });
+          }
         });
       }
     });  
