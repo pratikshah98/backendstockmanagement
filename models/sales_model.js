@@ -59,7 +59,7 @@ updateSale:function(id,item,callback){
 
 
 getsalebybranchid:function(id,callback){
-   return db.query("select * from Sale join customer on (Sale.fkCustomerEmailId=customer.customerEmailId) where fkBranchId=?",[id],callback);
+   return db.query("select * from Sale join customer on (Sale.fkCustomerEmailId=customer.customerEmailId) where fkBranchId=? order by Sale.salesDate desc",[id],callback);
 }
   
 }

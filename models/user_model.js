@@ -4,7 +4,7 @@ var User={
  
 getLogin:function(item,callback){
                 // console.log(item);
-        return db.query("Select * from User where userEmailId=? And userPassword=?",[item.userEmailId,item.userPassword],callback);
+        return db.query("Select * from user where userEmailId=? And userPassword=?",[item.userEmailId,item.userPassword],callback);
                    
 },
         
