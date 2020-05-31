@@ -50,8 +50,9 @@ router.put("/:purchaseId", function(req, res, next) {
 });
 router.post("/", function(req, res, next) {
   db.query("select * from Stock where fkItemId=? and fkBranchId=?",[req.body.fkItemId,req.body.branchId],function(err1,result1,fields1){
-    let newStock=result[0].stockQuantity + req.body.saleQuantity;
-    db.query("update Stock set stockQuantity=? where fkItemId=? and fkBranchId=?",[newStock,req.body.fkItemId,req.body.branchId],function(err1,result1,fields1){
+    let newStock= parseInt(req.body.purchaseQuantity) + parseInt(result1[0].stockQuantity);
+    console.log("New Stock= "+newStock+" - "+result1[0].stockQuantity+" - "+req.body.purchaseQuantity);
+    db.query("update Stock set stockQuantity=? where fkItemId=? and fkBranchId=?",[newStock,req.body.fkItemId,req.body.branchId],function(err2,result2,fields2){
       purchasedetail.addPurDetail(req.body, function(err, rows) {
         if (err) {
           res.json(err);
