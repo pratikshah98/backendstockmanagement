@@ -8,6 +8,7 @@ var saledetail = {
     );
   },
   addSalesdetail: function (item, callback) {
+    console.log("hehe");
     return db.query(
       "insert into salesdetails values(?,?,?)",
       [item.fkSaleId, item.fkItemId, item.saleQuantity],
