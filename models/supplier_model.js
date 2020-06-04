@@ -9,7 +9,10 @@ var supplier={
     deleteSupplier:function(id,callback){
         return db.query("delete from supplier where supplierEmailId=?",[id],callback);
     },
-   
+    getSupplierByEmail: function (email_id, callback) {
+        //console.log("Called");
+        return db.query("select supplierEmailId from supplier where supplierEmailId=?", [email_id], callback);
+      },
     getSupplierById:function(id,callback){
         return db.query("select * from supplier where supplierEmailId=?",[id],callback);
     },
