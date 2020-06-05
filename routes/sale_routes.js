@@ -105,8 +105,10 @@ router.post('/',function(req,res,next){
       } else {
         // console.log("All Sales"+result[0].data);
         let stockUsage=req.body.stockUsage;
+        
         let itemIds=[];
         for(let i=0;i<stockUsage.length;i++){
+          console.log("Stock= "+stockUsage[i].fkItemId+" "+stockUsage[i].stockQuantity);
           itemIds.push(stockUsage[i].fkItemId);
         }
         db.query("select * from item where itemId in (?)",[itemIds],function(err11,result11,fields11){
@@ -139,39 +141,43 @@ router.post('/',function(req,res,next){
                   // console.log("Date ="+currDate);
                   if(!(currDate > date) && !(currDate < date)){
                     // console.log("Inside Date.sale Date="+result[i].salesDate);
-                    if(result[i].fkSaleTypeId=='0040a784-6b5d-11ea-a8c8-ace2d3e54b8b'){
+                    // if(result[i].fkSaleTypeId=='0040a784-6b5d-11ea-a8c8-ace2d3e54b8b'){
                       // console.log("Inside CreditSale.");
                       creditSale.push(result[i].saleId);
-                    }
-                    else{
-                      // console.log("Inside CashSale.");
-                        cashSale.push(result[i].saleId);
-                    }
+                    // }
+                    // else{
+                    //   // console.log("Inside CashSale.");
+                    //     cashSale.push(result[i].saleId);
+                    // }
                   }
                 }
                 db.query("select * from salesdetails as s join item as i on (s.fkItemId=i.itemId) where s.fkSaleId in (?)",[creditSale],function(err1,result1,fields1){
-                  if(result1.length>0){
+                  if(result1){
                     for(let i=0;i<result1.length;i++){
                       creditCount+=result1[i].saleQuantity*result1[i].minimumRate;
-                      console.log("Inside CreditCount for sale id= "+result1[i].fkSaleId+" with qty= "+creditCount);
+                      // console.log("Inside CreditCount for sale id= "+result1[i].fkSaleId+" with qty= "+creditCount);
                     }
+                    console.log("Total Sale "+ creditCount);
+                    let final= totalPrice  - creditCount ; 
+                    console.log("Final Amt  "+ final);
+                    db.query("update branch set cash= ? where branchId= ?",[final,req.body.branchId],function(err3,result3){
+                    res.send("Done = "+final);
+                  });
                   }
                 });  
-                db.query("select * from salesdetails as s join item as i on (s.fkItemId=i.itemId) where s.fkSaleId in (?)",[cashSale],function(err2,result2,fields2){
-                  // console.log("Calculate Cash Sale");
-                  if(result2.length>0){
-                    for(let j=0;j<result2.length;j++){ 
-                      cashCount+=result2[j].saleQuantity*result2[j].minimumRate;
-                      console.log("Inside CashCount for sale id= "+result2[j].fkSaleId+" with qty= "+cashCount);
-                    }
-                  }
-                });  
+                // db.query("select * from salesdetails as s join item as i on (s.fkItemId=i.itemId) where s.fkSaleId in (?)",[cashSale],function(err2,result2,fields2){
+                //   // console.log("Calculate Cash Sale");
+                //   if(result2.length>0){
+                //     for(let j=0;j<result2.length;j++){ 
+                //       cashCount+=result2[j].saleQuantity*result2[j].minimumRate;
+                //       console.log("Inside CashCount for sale id= "+result2[j].fkSaleId+" with qty= "+cashCount);
+                //     }
+                //   }
+                // });  
               }
               
-                    let final= (totalPrice + cashCount) - creditCount ; 
-                      db.query("update branch set cash= ? where branchId= ?",[final,req.body.branchId],function(err3,result3){
-                      res.send("Done = "+final);
-                    });
+                    // let final= (totalPrice + cashCount) - creditCount ;
+                     
           }
         });
       }

@@ -31,6 +31,17 @@ router.delete("/:supplier_emailId", function(req, res, next) {
   });
 });
 
+router.get('/email/:email_id?',function(req,res,next){
+  supplier.getSupplierByEmail(req.params.email_id,function(err,rows){
+      if(err){
+          res.json(err);
+      }
+      else{
+          res.json(rows);
+      }    
+  });
+});
+
 router.put("/:supplier_emailId", function(req, res, next) {
   supplier.updateSupplier(req.params.supplier_emailId,req.body, function(err, rows) {
     if (err) {
