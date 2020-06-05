@@ -160,7 +160,7 @@ getChartDataByBranch: function(bid,callback){
 },
 getAllCreditorAmount:function(callback)
 {
-    return db.query("select customerName ,customerEmailId, customerPhoneNo,sum(amountDue) as TotalPendingAmount from amountdue join customer on fkCustomerEmailId=customerEmailId group by(fkCustomerEmailId) having TotalpendingAmount > 0",callback);
+    return db.query("SELECT s1.customerName, s1.customerEmailId , s1.customerPhoneNo, s1.TotalPendingAmount - s2.TotalPaidAmount as TotalPendingAmount from (select customerName ,customerEmailId, customerPhoneNo,sum(amountDue) as TotalPendingAmount from amountdue as a join customer on fkCustomerEmailId=customerEmailId where a.amountPaid = 0 group by(fkCustomerEmailId) having TotalpendingAmount > 0 )as s1 JOIN (select customerName ,customerEmailId, customerPhoneNo,sum(amountPaid) as TotalPaidAmount from amountdue as a1 join customer on fkCustomerEmailId=customerEmailId group by(fkCustomerEmailId))as s2 where s1.customerName=s2.customerName",callback);
 },
 getAllCreditorwithlastpaydate:function(callback)
 {

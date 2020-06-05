@@ -87,16 +87,16 @@ router.post('/',function(req,res,next){
       }
     });
   });
-  // router.post('/deleteMultiple', function(req, res, next) {
-  //           db.query("delete from Sale where saleId in (?)",[req.body],function(err1,rows){
-  //             if (err1) {
-  //               res.json(err1);
-  //             } else {
-  //               res.json(rows);
-  //             }
-  //           });  
+  router.post('/deleteMultiple', function(req, res, next) {
+            db.query("delete from Sale where saleId in (?)",[req.body],function(err1,rows){
+              if (err1) {
+                res.json(err1);
+              } else {
+                res.json(rows);
+              }
+            });  
     
-  // });
+  });
 
   router.post('/cashTally', function(req, res, next) {
     db.query("select * from Sale where fkBranchId = (?)",[req.body.branchId],function(err,result,fields){
