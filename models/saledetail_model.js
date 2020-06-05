@@ -9,8 +9,8 @@ var saledetail = {
   },
   addSalesdetail: function (item, callback) {
     return db.query(
-      "insert into salesdetails values(?,?,?,?)",
-      [item.fkSaleId, item.fkItemId, 0, item.saleQuantity],
+      "insert into salesdetails values(?,?,?)",
+      [item.fkSaleId, item.fkItemId, item.saleQuantity],
       callback
     );
   },
