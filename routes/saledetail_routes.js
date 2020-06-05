@@ -28,6 +28,7 @@ router.delete("/:sid", function (req, res, next) {
       res.json(err);
     } else {
       res.json(rows);
+    }
     }); 
   // db.query("select * from sale where saleId=?",[req.params.sid],function (err, result, fields) {
   //     if(result){
@@ -109,28 +110,28 @@ router.post("/", function (req, res, next) {
     if (err4) {
       res.json(err4);
     } else {
-    
+      res.json(rows4);
       // console.log("sale detail"+rows);
     
-  db.query(
-    "select * from Stock where fkItemId=? and fkBranchId=?",
-    [req.body.fkItemId, req.body.branchId],
-    function (err1, result1, fields1) {
-        console.log(req.body);
-        let newStock = result1[0].stockQuantity - req.body.saleQuantity;
-        console.log("Inside saleDetails " + result1[0]);
-        db.query(
-          "update Stock set stockQuantity=? where fkItemId=? and fkBranchId=?",
-          [newStock, req.body.fkItemId, req.body.branchId],
-          function (err2, result2, fields2) {
-            if(result2){
-              console.log("Inside 1");
-              res.json(rows4);
-            }
-          }
-        );
-    }
-  );
+  // db.query(
+  //   "select * from Stock where fkItemId=? and fkBranchId=?",
+  //   [req.body.fkItemId, req.body.branchId],
+  //   function (err1, result1, fields1) {
+  //       console.log(req.body);
+  //       let newStock = result1[0].stockQuantity - req.body.saleQuantity;
+  //       console.log("Inside saleDetails " + result1[0]);
+  //       db.query(
+  //         "update Stock set stockQuantity=? where fkItemId=? and fkBranchId=?",
+  //         [newStock, req.body.fkItemId, req.body.branchId],
+  //         function (err2, result2, fields2) {
+  //           if(result2){
+  //             console.log("Inside 1");
+  //             res.json(rows4);
+  //           }
+  //         }
+  //       );
+  //   }
+  // );
 }
 });
 });
