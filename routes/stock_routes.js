@@ -65,11 +65,13 @@ router.delete("/:fk_itemId/:fk_branchId", function (req, res, next) {
 
 router.post("/managestock/:fk_itemId/:fk_branchId", function (req, res, next) {
   db.query(
-    "select stockQuantity from Stock where fkItemId=? and fkBranchId= ?",
+    "select * from stock where fkItemId=? and fkBranchId= ?",
     [req.params.fk_itemId, req.params.fk_branchId],
     function (err, result, fields) {
-      // console.log(req.body.stockQuantity+" - "+result.stockQuantity);
-      console.log(result);
+      console.log(req.params)
+      console.log(req.params.fk_itemId+" ---- " +req.params.fk_branchId)
+      console.log(req.body.stockQuantity+" - "+result[0]);
+      // console.log(result);
       let newStock = result[0].stockQuantity - req.body.stockQuantity;
       // console.log("New= "+newStock);
       if (req.body.lastUpdatedDate == undefined) {
