@@ -27,7 +27,7 @@ router.delete("/:sid", function (req, res, next) {
     if (err) {
       res.json(err);
     } else {
-      res.json(rows);
+      res.json(rows);}
     }); 
   // db.query("select * from sale where saleId=?",[req.params.sid],function (err, result, fields) {
   //     if(result){
