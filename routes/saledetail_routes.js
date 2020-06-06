@@ -127,8 +127,8 @@ router.delete("/:sid", function (req, res, next) {
       }
     });  
     }
-    }); 
-});
+    });
+  });
 
 router.put("/:sid", function (req, res, next) {
   saledetail.updateSalesdetail(req.params.sid, req.body, function (err, rows) {
