@@ -112,7 +112,7 @@ router.delete("/:purchaseId", function(req, res, next) {
                                 if(rows3){
 
                                   console.log("Inside 15");
-                                  purchase.deletePurchase(req.params.purchaseId, function(err, rows) {
+                                  purchasedetail.deletePurDetail(req.params.purchaseId, function(err, rows) {
                                     if (err) {
                                       res.json(err);
                                     } else {
