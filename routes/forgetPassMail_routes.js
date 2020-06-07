@@ -20,9 +20,8 @@ router.get("/:userEmailId", function (req, res, next) {
     service: "gmail",
     secure: true,
     auth: {
-      //   user: 'dhairyajariwala26@gmail.com',
-      user: "dhairyajariwala26@gmail.com",
-      pass: "abcdEfg@12",
+        user: 'dhairyajariwala26@gmail.com',
+        pass: "abcdEfg@12",
     },
   });
   let otp = "";
