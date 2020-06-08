@@ -41,9 +41,8 @@ router.get("/", function (req, res, next) {
               service: "gmail",
 
               auth: {
-                user: "dhairyajariwala26@gmail.com",
-
-                pass: "abcdEfg@12",
+                user: "chiragshah.vardhmanxerox@gmail.com",
+                pass: "vardhmanxerox@123",
               },
               tls: {
                 rejectUnauthorized: false,
@@ -51,7 +50,7 @@ router.get("/", function (req, res, next) {
             });
 
             var mailOptions = {
-              from: "dhairyajariwala26@gmail.com",
+              from: "chiragshah.vardhmanxerox@gmail.com",
 
               to: email,
 

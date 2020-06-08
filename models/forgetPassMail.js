@@ -6,8 +6,8 @@ let Mymail = {
       service: "gmail",
       secure: true,
       auth: {
-        user: "dhairyajariwala26@gmail.com",
-        pass: "abcdEfg@12",
+        user: "chiragshah.vardhmanxerox@gmail.com",
+        pass: "vardhmanxerox@123",
       },
       tls: {
         rejectUnauthorised: false,
@@ -40,7 +40,7 @@ let Mymail = {
     // p.then(resolve1=>{
     console.log("Inside 2");
     var mailOptions = {
-      from: "dhairyajariwala26@gmail.com",
+      from: "chiragshah.vardhmanxerox@gmail.com",
       to: id,
       subject: "OTP For Reset Password",
       text:
