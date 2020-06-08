@@ -118,34 +118,25 @@ app.use(function (err, req, res, next) {
 });
 
 var db = require("./dbconnec"); //reference of dbconnection.js
-const cron = require("node-cron");
+const cron = require("node-cron"); // for cron job
 const axios = require("axios");
 
 // FOR TESTING - run task at every minute
-// cron.schedule("0-59 * * * *", () => {
+// cron.schedule("* * * * *", () => {
 // run at everyday 9:00 PM
 cron.schedule("0 21 * * *", () => {
+  //   console.log("run task at every minute");
   axios
-    .get("http://localhost:4000/branch")
-    .then((response) => {
-      response.data.forEach((item) => {
-        axios
-          .get("http://localhost:4000/reorder/" + item.branchId)
-          .then((response1) => {
-            if (response1.status == 200) {
-              console.log("Reorder email sent");
-            } else {
-              console.log("Failed to send reorder email");
-            }
-          })
-          .catch((err1) => {
-            console.log(err1);
-          });
-      });
+    .get("http://localhost:4000/reorder")
+    .then((response1) => {
+      if (response1.status == 200) {
+        console.log("Reorder email sent");
+      } else {
+        console.log("Failed to send reorder email");
+      }
     })
-    .catch((err) => {
-      console.log(err);
+    .catch((err1) => {
+      console.log(err1);
     });
 });
-
 module.exports = app;
