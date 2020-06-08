@@ -123,12 +123,8 @@ const axios = require("axios");
 
 // FOR TESTING - run task at every minute
 // cron.schedule("0-59 * * * *", () => {
-
 // run at everyday 9:00 PM
-// cron.schedule("0 21 * * *", () => {
-
 cron.schedule("0 21 * * *", () => {
-  // replace with "0-59 * * * *" to run it every minute
   axios
     .get("http://localhost:4000/branch")
     .then((response) => {

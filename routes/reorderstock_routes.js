@@ -28,12 +28,18 @@ router.get("/:bid", function (req, res, next) {
         var mailOptions = {
           from: "dhairyajariwala26@gmail.com",
 
-          to: rows[i].userEmailId,
+          to: "dhairyajariwala26@gmail.com",
 
-          subject: "REMAINDER OF REORDER ITEM",
+          subject:
+            "Reminder for re-ordering items (" +
+            rows[i].branchName +
+            " Branch)",
 
           //text:rows[i].itemId,
           html:
+            " <h2>The following items are below the reorder level in " +
+            rows[i].branchName +
+            " branch :</h2> <br>" +
             '<table border style="border:1px solid black;"> ' +
             "<tr>" +
             "<th>  Item Name      </th>" +
