@@ -3,82 +3,87 @@ var express = require("express");
 var router = express.Router();
 var nodemailer = require("nodemailer");
 
-router.get("/:bid", function (req, res, next) {
-  reorder.getitemforreorder(req.params.bid, function (err, rows) {
-    if (err) {
-      res.json(err);
-    } else {
-      //res.json(rows);
-      //console.log(rows);
-      let itemList = "";
-      let branchName;
-      for (i = 0; i < rows.length; i++) {
-        // console.log(rows[i]);
-        branchName = rows[i].branchName;
-        itemList +=
-          "<tr>" +
-          "<td>" +
-          rows[i].name +
-          "</td>" +
-          "<td>" +
-          rows[i].gsm +
-          "</td>" +
-          "<td>" +
-          rows[i].size +
-          "</td>" +
-          "<td>" +
-          rows[i].stockQuantity +
-          "</td>" +
-          "</tr>";
-      }
-
-      if (rows.length != 0) {
-        var transporter = nodemailer.createTransport({
-          service: "gmail",
-
-          auth: {
-            user: "dhairyajariwala26@gmail.com",
-
-            pass: "abcdEfg@12",
-          },
-          tls: {
-            rejectUnauthorized: false,
-          },
-        });
-
-        var mailOptions = {
-          from: "dhairyajariwala26@gmail.com",
-
-          to: "dhairyajariwala26@gmail.com",
-
-          subject: "Reminder for re-ordering items (" + branchName + " Branch)",
-
-          //text:rows[i].itemId,
-          html:
-            " <h2>The following items are below the reorder level in " +
-            branchName +
-            " branch :</h2> <br>" +
-            '<table border style="border:1px solid black;"> ' +
-            "<tr>" +
-            "<th>  Item Name      </th>" +
-            "<th>  GSM  </th>" +
-            "<th>  Size  </th>" +
-            "<th>  Current Stock  </th>" +
-            "</tr>" +
-            itemList +
-            "</table>",
-        };
-
-        transporter.sendMail(mailOptions, function (error, info) {
-          if (error) {
-            console.log(error);
-          } else {
-            console.log("Email sent: " + info.response);
+router.get("/", function (req, res, next) {
+  reorder.getBranchBYName(function (err, rows) {
+    for (i = 0; i < rows.length; i++) {
+      reorder.getitemforreorder(rows[i].branchId, function (err, result) {
+        if (err) {
+          res.json(err);
+        } else {
+          //res.json(rows);
+          console.log(result);
+          let itemList = "";
+          let branchName;
+          let email = "";
+          for (i = 0; i < result.length; i++) {
+            email = result[0].userEmailId;
+            console.log(result[i]);
+            branchName = result[i].branchName;
+            itemList +=
+              "<tr>" +
+              "<td>" +
+              result[i].name +
+              "</td>" +
+              "<td>" +
+              result[i].gsm +
+              "</td>" +
+              "<td>" +
+              result[i].size +
+              "</td>" +
+              "<td>" +
+              result[i].stockQuantity +
+              "</td>" +
+              "</tr>";
           }
-        });
-      }
 
-      res.send("Done");
+          if (result.length != 0) {
+            var transporter = nodemailer.createTransport({
+              service: "gmail",
+
+              auth: {
+                user: "dhairyajariwala26@gmail.com",
+
+                pass: "abcdEfg@12",
+              },
+              tls: {
+                rejectUnauthorized: false,
+              },
+            });
+
+            var mailOptions = {
+              from: "dhairyajariwala26@gmail.com",
+
+              to: email,
+
+              subject:
+                "Reminder for re-ordering items (" + branchName + " Branch)",
+
+              //text:rows[i].itemId,
+              html:
+                " <h2>The following items are below the reorder level in " +
+                branchName +
+                " branch :</h2> <br>" +
+                '<table border style="border:1px solid black;"> ' +
+                "<tr>" +
+                "<th>  Item Name      </th>" +
+                "<th>  GSM  </th>" +
+                "<th>  Size  </th>" +
+                "<th>  Current Stock  </th>" +
+                "</tr>" +
+                itemList +
+                "</table>",
+            };
+
+            transporter.sendMail(mailOptions, function (error, info) {
+              if (error) {
+                console.log(error);
+              } else {
+                console.log("Email sent: " + info.response);
+              }
+            });
+          }
+        }
+      });
     }
   });
 });
