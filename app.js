@@ -139,4 +139,10 @@ cron.schedule("0 21 * * *", () => {
       console.log(err1);
     });
 });
+cron.schedule("0 0 * * *", () => {
+  db.query("update branch set cash = 0", (err, data) => {
+    if (err) console.log("error updating branch cash");
+    else console.log("branch cash settled to 0");
+  });
+});
 module.exports = app;
